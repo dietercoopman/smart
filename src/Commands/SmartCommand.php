@@ -1,10 +1,10 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace Dietercoopman\Smart\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class SmartCommand extends Command
 {
     public $signature = 'skeleton';
 
