@@ -11,6 +11,6 @@ class SmartFacade extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return 'skeleton';
+        return 'smart';
     }
 }

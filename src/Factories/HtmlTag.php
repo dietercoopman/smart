@@ -2,7 +2,7 @@
 
 class HtmlTag
 {
-    private function parse($html)
+    public function parse($html)
     {
         return $html;
     }
