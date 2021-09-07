@@ -6,7 +6,6 @@ use Dietercoopman\Smart\Factories\HtmlFactory;
 
 class Smart
 {
-
     use SmartHtml;
 
     public function parse($html)

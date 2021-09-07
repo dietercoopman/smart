@@ -2,7 +2,6 @@
 
 namespace Dietercoopman\Smart;
 
-use Dietercoopman\Smart\Commands\SmartCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
@@ -12,5 +11,4 @@ class SmartServiceProvider extends PackageServiceProvider
     {
         $package->name('smart');
     }
-
 }

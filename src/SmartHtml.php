@@ -10,6 +10,7 @@ trait SmartHtml
     {
         /** @var AttributeParser $attributeParser */
         $attributeParser = app(AttributeParser::class);
+
         return (bool)optional($attributeParser->getAttributes($html))['smart'];
     }
 }
