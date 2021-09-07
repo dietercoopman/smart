@@ -2,9 +2,9 @@
 
 namespace Dietercoopman\Smart\Tests;
 
+use Dietercoopman\Smart\SmartServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
-use Dietercoopman\Smart\SmartServiceProvider;
 
 class TestCase extends Orchestra
 {

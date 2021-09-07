@@ -1,4 +1,6 @@
-<?php namespace Dietercoopman\Smart\Factories;
+<?php
+
+namespace Dietercoopman\Smart\Factories;
 
 use DOMDocument;
 use DOMXPath;
@@ -9,6 +11,7 @@ class ImageTag
     public function parse($html)
     {
         $src = $this->getSrc($html);
+
         return "<img src='{$this->parseSrc($src)}'>";
     }
 
@@ -17,9 +20,8 @@ class ImageTag
         $dom = new DOMDocument();
         $dom->loadHTML($html);
         $xpath = new DOMXPath($dom);
+
         return $xpath->evaluate("string(//img/@src)");
-
-
     }
 
     private function parseSrc(mixed $src)
@@ -29,6 +31,5 @@ class ImageTag
         }
 
         return "data:image/png;base64," . base64_encode(File::get($src));
-
     }
 }
