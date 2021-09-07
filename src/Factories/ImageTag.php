@@ -1,4 +1,6 @@
-<?php namespace Dietercoopman\Smart\Factories;
+<?php
+
+namespace Dietercoopman\Smart\Factories;
 
 use Dietercoopman\Smart\Concerns\AttributeParser;
 use Illuminate\Support\Facades\File;
