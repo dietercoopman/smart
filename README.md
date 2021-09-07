@@ -1,3 +1,6 @@
+![Tests](https://github.com/dietercoopman/smart/workflows/run-tests/badge.svg)
+![Downloads](https://img.shields.io/packagist/dt/dietercoopman/smart.svg?style=flat-square)
+
 # This package makes your image tags smarter
 
 With this package you enable your <img> tags to serve private hosted files. For examples files that are stored on a mount path and are not public accesible through a webserver.
