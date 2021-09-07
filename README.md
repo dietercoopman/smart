@@ -1,29 +1,23 @@
-# This packages enables the ability to server file streams in a smart way
+# This package makes your image tags smarter
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/dietercoopman/smart.svg?style=flat-square)](https://packagist.org/packages/dietercoopman/smart)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/dietercoopman/smart/run-tests?label=tests)](https://github.com/dietercoopman/smart/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/dietercoopman/smart/Check%20&%20fix%20styling?label=code%20style)](https://github.com/dietercoopman/smart/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amain)
-[![Total Downloads](https://img.shields.io/packagist/dt/dietercoopman/smart.svg?style=flat-square)](https://packagist.org/packages/dietercoopman/smart)
+With this package you enable your <img> tags to serve private hosted files. For examples files that are stored on a mount path and are not public accesible through a webserver.
 
----
-This repo can be used to scaffold a Laravel package. Follow these steps to get started:
+## This is work in progress , the blade compiler is not ready yet
 
-1. Press the "Use template" button at the top of this repo to create a new repo with the contents of this skeleton
-2. Run "php ./configure.php" to run a script that will replace all placeholders throughout all the files
-3. Remove this block of text.
-4. Have fun creating your package.
-5. If you need help creating a package, consider picking up our <a href="https://laravelpackage.training">Laravel Package Training</a> video course.
----
+current implementation
 
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
+```php
+$compiler = app(\Dietercoopman\Smart\Smart::class);
+echo $compiler->parse('<img src="../storage/file.png" width="400px" smart>');
+```
 
-## Support us
+future implementation
 
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/smart.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/smart)
+```html
+<img src="../storage/file.png" width="400px" smart>
+```
 
-We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
-
-We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
+The packages gives you the ability to stream your private files and resize them on the fly by specifying the width and height in your tag.
 
 ## Installation
 
@@ -31,38 +25,6 @@ You can install the package via composer:
 
 ```bash
 composer require dietercoopman/smart
-```
-
-You can publish and run the migrations with:
-
-```bash
-php artisan vendor:publish --provider="Dietercoopman\Smart\SmartServiceProvider" --tag="smart-migrations"
-php artisan migrate
-```
-
-You can publish the config file with:
-```bash
-php artisan vendor:publish --provider="Dietercoopman\Smart\SmartServiceProvider" --tag="smart-config"
-```
-
-This is the contents of the published config file:
-
-```php
-return [
-];
-```
-
-## Usage
-
-```php
-$skeleton = new Dietercoopman\Smart();
-echo $skeleton->echoPhrase('Hello, Dietercoopman!');
-```
-
-## Testing
-
-```bash
-composer test
 ```
 
 ## Changelog
