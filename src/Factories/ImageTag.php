@@ -24,8 +24,8 @@ class ImageTag
     {
         $attributes = $this->attributesParser->getAttributes($imagTag);
 
-        if (! $this->isWebServed($attributes['src']) || $this->needsResizing($attributes)) {
-            return $this->makeWebServed($attributes);
+        if (!$this->isWebServed($attributes['src']) || $this->needsResizing($attributes)) {
+            return $this->processImage($attributes);
         }
 
         return $attributes['src'];
@@ -45,7 +45,7 @@ class ImageTag
     {
         $img = Image::make($imageStream);
 
-        $width = $this->sanitize($width);
+        $width  = $this->sanitize($width);
         $height = $this->sanitize($height);
 
         $img->resize($width, $height, function ($constraint) {
@@ -55,14 +55,18 @@ class ImageTag
         return $img->stream()->__toString();
     }
 
-    private function sanitize(mixed $value): array | string | null
+    private function sanitize(mixed $value): array|string|null
     {
         return preg_replace('/[^0-9]/', '', $value);
     }
 
-    private function makeWebServed(mixed $attributes): string
+    private function processImage(mixed $attributes): string
     {
-        $imageStream = File::get($attributes['src']);
+        if ($this->isWebServed($attributes['src'])) {
+            $imageStream = file_get_contents($attributes['src']);
+        } else {
+            $imageStream = File::get($attributes['src']);
+        }
 
         if ($this->needsResizing($attributes)) {
             $imageStream = $this->resize($imageStream, $attributes['width'] ?? null, $attributes['height'] ?? null);
