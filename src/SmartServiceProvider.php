@@ -14,7 +14,5 @@ class SmartServiceProvider extends PackageServiceProvider
         $this->publishes([
             __DIR__ . '/../resources/views' => resource_path('views/vendor/smart-views'),
         ], 'smart-views');
-
     }
-
 }
