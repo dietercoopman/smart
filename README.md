@@ -13,7 +13,7 @@ So this package makes it possible to
 
 ## Blade component
 
-Smart provides you with a blade component as replacement for the normal `<img>` html tag.  You can pass in all html attributes , they will be applied. 
+Smart provides you with a blade component as replacement for the normal `<img>` html tag.  You can pass in all html attributes , they will be applied.   This example will serve a file that is not public accessible and resize it to 400px maintaining the aspect ratio.
 
 ```html
 <x-smart-image src="../storage/file.png" width="400px" />
