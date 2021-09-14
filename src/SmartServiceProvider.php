@@ -16,6 +16,5 @@ class SmartServiceProvider extends PackageServiceProvider
         $this->callAfterResolving(BladeCompiler::class, function () {
             Blade::component('smart::image', "image");
         });
-
     }
 }
