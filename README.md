@@ -7,21 +7,21 @@ This packages is very handy if you want to serve private hosted images ( images 
 to the browser.
 
 So this package makes it possible to
-- serve images that are not public accessible without coding 
-- resize images without coding
+- **serve images** that are not public accessible without coding 
+- **resize images** without coding
 - resizing public hosted images 
 
 ## Blade component
 
-Smart provides you with a blade component as replacement for the normal `<img>` html tag.  You can pass in all html attributes , they will be applied.   This example will serve a file that is not public accessible and resize it to 400px maintaining the aspect ratio.
+Smart provides you with a **blade component** as replacement for the normal `<img>` html tag.  You can pass in all html attributes , they will be applied.   This example will **serve a file that is not public accessible** and **resize it** to 400px maintaining the aspect ratio.
 
 ```html
 <x-smart-image src="../storage/file.png" width="400px" />
 ```
 
-It's also possible to handle public hosted files but changing the image size , so execute a real resize on the image stream and not only telling the browser to show it at other dimensions.
+It's also possible to **handle public hosted files** but **changing** the image **size** , so execute a real resize on the image stream and not only telling the browser to show it at other dimensions.
 ```html
-<x-smart-image src="https://raw.githubusercontent.com/dietercoopman/smart/main/tests/test.png" width="600px" height="700px" />
+<x-smart-image src="https://raw.githubusercontent.com/dietercoopman/smart/main/tests/test.png" width="600px" />
 ```
 
 ## Installation
