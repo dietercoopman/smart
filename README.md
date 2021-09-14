@@ -1,26 +1,18 @@
 ![Tests](https://github.com/dietercoopman/smart/workflows/run-tests/badge.svg)
 ![Downloads](https://img.shields.io/packagist/dt/dietercoopman/smart.svg?style=flat-square)
 
-# This package makes your image tags smarter
+# This package makes it possible to create smart images
 
-With this package you enable your `<img>` tags to serve private hosted files. For examples files that are stored on a mount path and are not public accesible through a webserver.
+This packages is very handy if you want to serve private hosted images ( images on a non public path).  It is also very handy if you want to resize your images before sending them 
+to the browser.
 
-## This is work in progress , the blade compiler is not ready yet
+## Blade component
 
-current implementation
-
-```php
-$compiler = app(\Dietercoopman\Smart\Smart::class);
-echo $compiler->parse('<img src="../storage/file.png" width="400px" smart>');
-```
-
-future implementation
+Smart provides you with a blade component as replacement for the normal `<img>` html tag.  You can pass in all html attributes , they will be applied. 
 
 ```html
-<img src="../storage/file.png" width="400px" smart>
+<x-smart-image src="../storage/file.png" width="400px" />
 ```
-
-The packages gives you the ability to stream your private files and resize them on the fly by specifying the width and height in your tag.
 
 ## Installation
 
