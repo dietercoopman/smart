@@ -24,7 +24,7 @@ class ImageTag
     {
         $attributes = $this->attributesParser->getAttributes($imagTag);
 
-        if (! $this->isWebServed($attributes['src'])) {
+        if (! $this->isWebServed($attributes['src']) || $this->needsResizing($attributes)) {
             return $this->makeWebServed($attributes);
         }
 
