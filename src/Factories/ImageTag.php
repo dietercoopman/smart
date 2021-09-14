@@ -24,7 +24,7 @@ class ImageTag
     {
         $attributes = $this->attributesParser->getAttributes($imagTag);
 
-        if (!$this->isWebServed($attributes['src']) || $this->needsResizing($attributes)) {
+        if (! $this->isWebServed($attributes['src']) || $this->needsResizing($attributes)) {
             return $this->processImage($attributes);
         }
 
@@ -45,7 +45,7 @@ class ImageTag
     {
         $img = Image::make($imageStream);
 
-        $width  = $this->sanitize($width);
+        $width = $this->sanitize($width);
         $height = $this->sanitize($height);
 
         $img->resize($width, $height, function ($constraint) {
