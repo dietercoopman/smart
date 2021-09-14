@@ -13,8 +13,11 @@ class SmartServiceProvider extends PackageServiceProvider
     {
         $package->name('smart');
 
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'smart');
+
         $this->callAfterResolving(BladeCompiler::class, function () {
-            Blade::component('components.smart-image', "smart-image");
+            Blade::component('smart::components.smart-image', "smart-image");
         });
+
     }
 }
