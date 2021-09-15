@@ -1,27 +1,26 @@
 ![Tests](https://github.com/dietercoopman/smart/workflows/run-tests/badge.svg)
 ![Downloads](https://img.shields.io/packagist/dt/dietercoopman/smart.svg?style=flat-square)
 
-# This package makes it possible to create smart images
+# This package provides a blade component for easy image manipulation without extra coding
 
-This packages is very handy if you want to serve private hosted images ( images on a non public path).  It is also very handy if you want to resize your images before sending them 
-to the browser.
+This packages is very handy if you want to serve private hosted images ( images on a non public path) without the need to code your own logic.  It is also very handy if you want to resize your images before sending them to the browser also without extra coding.
 
 So this package makes it possible to
-- serve images that are not public accessible without coding 
-- resize images without coding
-- resizing public hosted images 
+- **serve images** that are not public accessible **without coding **
+- **resize images** without coding
+- resizing public hosted images **without coding** 
 
 ## Blade component
 
-Smart provides you with a blade component as replacement for the normal `<img>` html tag.  You can pass in all html attributes , they will be applied. 
+Smart provides you with a **blade component** as replacement for the normal `<img>` html tag.  You can pass in all html attributes , they will be applied.   This example will **serve a file that is not public accessible** and **resize it** to 400px maintaining the aspect ratio.
 
 ```html
 <x-smart-image src="../storage/file.png" width="400px" />
 ```
 
-It's also possible to handle public hosted files but changing the image size , so execute a real resize on the image stream and not only telling the browser to show it at other dimensions.
+It's also possible to **handle public hosted files** but **changing** the image **size** , so execute a real resize on the image stream and not only telling the browser to show it at other dimensions.
 ```html
-<x-smart-image src="https://raw.githubusercontent.com/dietercoopman/smart/main/tests/test.png" width="600px" height="700px" />
+<x-smart-image src="https://raw.githubusercontent.com/dietercoopman/smart/main/tests/test.png" width="600px" />
 ```
 
 ## Installation
