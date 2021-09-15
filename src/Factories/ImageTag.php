@@ -3,6 +3,7 @@
 namespace Dietercoopman\Smart\Factories;
 
 use Dietercoopman\Smart\Concerns\AttributeParser;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\File;
 use Intervention\Image\ImageManagerStatic as Image;
 
@@ -17,12 +18,13 @@ class ImageTag
 
     public function parse($imagTag): string
     {
-        return "<img src='{$this->parseImage($imagTag)}'>";
+        $attributes = $this->attributesParser->getAttributes($imagTag);
+
+        return "<img src='{$this->parseImage($attributes)}' ".$this->attributesParser->rebuild($attributes).">";
     }
 
-    private function parseImage(string $imagTag): string
+    private function parseImage(array $attributes): string
     {
-        $attributes = $this->attributesParser->getAttributes($imagTag);
 
         if (!$this->isWebServed($attributes['src']) || $this->needsResizing($attributes)) {
             return $this->processImage($attributes);
@@ -62,16 +64,28 @@ class ImageTag
 
     private function processImage(mixed $attributes): string
     {
+        return Cache::get(sha1(json_encode($attributes)), function () use ($attributes) {
+            return $this->getContentsAndCache($attributes);
+        });
+    }
+
+    private function getImageStream(mixed $attributes) : string
+    {
         if ($this->isWebServed($attributes['src'])) {
-            $imageStream = file_get_contents($attributes['src']);
+            return file_get_contents($attributes['src']);
         } else {
-            $imageStream = File::get($attributes['src']);
+            return File::get($attributes['src']);
         }
 
+    }
+
+    private function getContentsAndCache($attributes)
+    {
+        $imageStream = $this->getImageStream($attributes);
         if ($this->needsResizing($attributes)) {
             $imageStream = $this->resize($imageStream, $attributes['width'] ?? null, $attributes['height'] ?? null);
         }
-
+        Cache::put(sha1(json_encode($attributes)), "data:image/png;base64," . base64_encode($imageStream));
         return "data:image/png;base64," . base64_encode($imageStream);
     }
 }
