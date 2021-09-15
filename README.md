@@ -1,15 +1,14 @@
 ![Tests](https://github.com/dietercoopman/smart/workflows/run-tests/badge.svg)
 ![Downloads](https://img.shields.io/packagist/dt/dietercoopman/smart.svg?style=flat-square)
 
-# This package makes it possible to create smart images
+# This package provides a blade component for easy image manipulation without extra coding
 
-This packages is very handy if you want to serve private hosted images ( images on a non public path).  It is also very handy if you want to resize your images before sending them 
-to the browser.
+This packages is very handy if you want to serve private hosted images ( images on a non public path) without the need to code your own logic.  It is also very handy if you want to resize your images before sending them to the browser also without extra coding.
 
 So this package makes it possible to
-- **serve images** that are not public accessible without coding 
+- **serve images** that are not public accessible **without coding **
 - **resize images** without coding
-- resizing public hosted images 
+- resizing public hosted images **without coding** 
 
 ## Blade component
 
