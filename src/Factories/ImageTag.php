@@ -25,7 +25,6 @@ class ImageTag
 
     private function parseImage(array $attributes): string
     {
-
         if (! $this->isWebServed($attributes['src']) || $this->needsResizing($attributes)) {
             return $this->processImage($attributes);
         }
@@ -69,14 +68,13 @@ class ImageTag
         });
     }
 
-    private function getImageStream(mixed $attributes) : string
+    private function getImageStream(mixed $attributes): string
     {
         if ($this->isWebServed($attributes['src'])) {
             return file_get_contents($attributes['src']);
         } else {
             return File::get($attributes['src']);
         }
-
     }
 
     private function getContentsAndCache($attributes)
@@ -86,6 +84,7 @@ class ImageTag
             $imageStream = $this->resize($imageStream, $attributes['width'] ?? null, $attributes['height'] ?? null);
         }
         Cache::put(sha1(json_encode($attributes)), "data:image/png;base64," . base64_encode($imageStream));
+
         return "data:image/png;base64," . base64_encode($imageStream);
     }
 }

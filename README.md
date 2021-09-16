@@ -1,6 +1,8 @@
 ![Tests](https://github.com/dietercoopman/smart/workflows/run-tests/badge.svg)
 ![Downloads](https://img.shields.io/packagist/dt/dietercoopman/smart.svg?style=flat-square)
 
+![smart image manipulation](https://banners.beyondco.de/smart.png?theme=light&packageManager=composer+require&packageName=dietercoopman%2Fsmart&pattern=architect&style=style_1&description=a+blade+component+for+easy+image+manipulation&md=1&showWatermark=1&fontSize=100px&images=https%3A%2F%2Flaravel.com%2Fimg%2Flogomark.min.svg)
+
 # This package provides a blade component for easy image manipulation without extra coding
 
 This packages is very handy if you want to serve private hosted images ( images on a non public path) without the need to code your own logic.  It is also very handy if you want to resize your images before sending them to the browser also without extra coding.
