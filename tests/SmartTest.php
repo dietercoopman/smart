@@ -4,7 +4,7 @@ namespace Dietercoopman\Smart\Tests;
 
 use Dietercoopman\Smart\Smart;
 
-class ExampleTest extends TestCase
+class SmartTest extends TestCase
 {
     public function test_img_gets_stream()
     {
