@@ -18,5 +18,16 @@ class SmartServiceProvider extends PackageServiceProvider
         $this->callAfterResolving(BladeCompiler::class, function () {
             Blade::component('smart::components.smart-image', "smart-image");
         });
+
+
+        $filename_pattern = '[ \w\\.\\/\\-\\@\(\)]+';
+
+        $this->app['router']->get('/smart/{filename}', [
+            'uses' => 'Dietercoopman\Smart\Factories\ImageTag@serve',
+            'as'   => 'images'
+        ])->where(['imagTag' => $filename_pattern]);
+
     }
+
+
 }

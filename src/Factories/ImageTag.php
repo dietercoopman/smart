@@ -3,11 +3,14 @@
 namespace Dietercoopman\Smart\Factories;
 
 use Dietercoopman\Smart\Concerns\AttributeParser;
+use Dietercoopman\Smart\Concerns\ImageParser;
+use Illuminate\Http\Response as IlluminateResponse;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\File;
-use Intervention\Image\ImageManagerStatic as Image;
+use Illuminate\Support\Facades\Config;
+use Intervention\Image\ImageCacheController;
+use Intervention\Image\ImageManager;
 
-class ImageTag
+class ImageTag extends ImageCacheController
 {
     private AttributeParser $attributesParser;
 
@@ -16,75 +19,61 @@ class ImageTag
         $this->attributesParser = app(AttributeParser::class);
     }
 
+    /**
+     * Parse the smart image tag
+     */
     public function parse($imagTag): string
     {
         $attributes = $this->attributesParser->getAttributes($imagTag);
-
-        return "<img src='{$this->parseImage($attributes)}' ".$this->attributesParser->rebuild($attributes).">";
+        $src        = $this->parseAttributesAndRetreiveNewSrc($attributes);
+        return "<img src='" . $src . "'" . $this->attributesParser->rebuild($attributes) . ">";
     }
 
-    private function parseImage(array $attributes): string
+    /**
+     * Serve the image that has been cached
+     * @param $filename
+     * @return IlluminateResponse|Illuminate\Http\Response
+     * @throws \Exception
+     */
+    public function serve($filename): IlluminateResponse|Illuminate\Http\Response
     {
-        if (! $this->isWebServed($attributes['src']) || $this->needsResizing($attributes)) {
-            return $this->processImage($attributes);
-        }
-
-        return $attributes['src'];
+        return $this->buildResponse(cache()->get($filename));
     }
 
-    private function needsResizing($attributes): bool
+    private function parseAttributesAndRetreiveNewSrc(array $attributes): string
     {
-        return isset($attributes['width']) || isset($attributes['height']);
+        $webserved     = ImageParser::isWebServed($attributes['src']);
+        $needsresizing = ImageParser::needsResizing($attributes);
+
+        return (!$webserved || $needsresizing) ? $this->processAndRetreiveSrc($attributes) : $attributes['src'];
+
     }
 
-    private function isWebServed(mixed $src): bool
+    /**
+     * @param $attributes
+     * @return string
+     */
+    private function processAndRetreiveSrc($attributes): string
     {
-        return strstr($src, 'http://') || strstr($src, 'https://');
+        $manager = new ImageManager(Config::get('image'));
+        $content = $manager->cache(ImageParser::getCacheableImageFunction($attributes), 3600, true);
+        $src     = (optional($attributes)['data-src']) ? $this->getNewCacheKey($content->cachekey, $attributes['data-src']) : $content->cachekey;
+        return 'smart/' . $src;
+
     }
 
-    private function resize($imageStream, mixed $width, mixed $height): string
+    /**
+     * Replace the originally generated cache key with a new cache key
+     * @param $originalKey
+     * @param $newKey
+     * @return string
+     */
+    private function getNewCacheKey($originalKey, $newKey): string
     {
-        $img = Image::make($imageStream);
-
-        $width = $this->sanitize($width);
-        $height = $this->sanitize($height);
-
-        $img->resize($width, $height, function ($constraint) {
-            $constraint->aspectRatio();
-        });
-
-        return $img->stream()->__toString();
+        Cache::put($newKey, Cache::get($originalKey));
+        Cache::forget($originalKey);
+        return $newKey;
     }
 
-    private function sanitize(mixed $value): array|string|null
-    {
-        return preg_replace('/[^0-9]/', '', $value);
-    }
 
-    private function processImage(mixed $attributes): string
-    {
-        return Cache::get(sha1(json_encode($attributes)), function () use ($attributes) {
-            return $this->getContentsAndCache($attributes);
-        });
-    }
-
-    private function getImageStream(mixed $attributes): string
-    {
-        if ($this->isWebServed($attributes['src'])) {
-            return file_get_contents($attributes['src']);
-        } else {
-            return File::get($attributes['src']);
-        }
-    }
-
-    private function getContentsAndCache($attributes)
-    {
-        $imageStream = $this->getImageStream($attributes);
-        if ($this->needsResizing($attributes)) {
-            $imageStream = $this->resize($imageStream, $attributes['width'] ?? null, $attributes['height'] ?? null);
-        }
-        Cache::put(sha1(json_encode($attributes)), "data:image/png;base64," . base64_encode($imageStream));
-
-        return "data:image/png;base64," . base64_encode($imageStream);
-    }
 }
