@@ -17,12 +17,18 @@ class ImageParser
             $imageStream = self::getImageStream($attributes);
             $img = $image->make($imageStream);
             if (self::needsResizing($attributes)) {
-                $img->resize($attributes['width'] ?? null, $attributes['height'] ?? null, function ($constraint) {
+                $img->resize(self::sanitize(optional($attributes)['width']) ?? null,self::sanitize(optional($attributes)['height']) ?? null, function ($constraint) {
                     $constraint->aspectRatio();
                     $constraint->upsize();
                 });
             }
+
         };
+    }
+
+    private static function sanitize(mixed $value): array|string|null
+    {
+        return preg_replace('/[^0-9]/', '', $value);
     }
 
     public static function needsResizing($attributes): bool
