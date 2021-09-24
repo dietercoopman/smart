@@ -51,6 +51,8 @@ this will generate this html as output
 <img src="smart/branding.png" width="600px">
 ```
 
+### Here you see the caching in action
+
 ![cache example](cache.png)
 
 
