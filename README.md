@@ -17,9 +17,6 @@ So this package makes it possible to
 
 Smart provides you with a **blade component** as replacement for the normal `<img>` html tag.  You can pass in all html attributes , they will be applied.   This example will **serve a file that is not public accessible** and **resize it** to 400px maintaining the aspect ratio.
 
-![smart example](example.png)
-
-
 ```html
 <x-smart-image src="{{ storage_path('smart.png') }}" width="400px"/>
 ```
@@ -30,11 +27,12 @@ This will parse the image , cache it and serve to your browser
 <img src="smart/8b0ebfa9edad45277f20a705cbdcb48f" width="400px">
 ```
 
-
 It's also possible to **handle public hosted files** but **changing** the image **size** , so execute a real resize on the image stream and not only telling the browser to show it at other dimensions.
 ```html
 <x-smart-image src="https://raw.githubusercontent.com/dietercoopman/smart/main/tests/test.png" width="600px" />
 ```
+
+![smart example](example.png)
 
 ## Caching 
 
