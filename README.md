@@ -51,6 +51,9 @@ this will generate this html as output
 <img src="smart/branding.png" width="600px">
 ```
 
+![cache example](cache.png)
+
+
 ## Installation
 
 You can install the package via composer:
