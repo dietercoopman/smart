@@ -25,7 +25,8 @@ class ImageTag extends ImageCacheController
     public function parse($imagTag): string
     {
         $attributes = $this->attributesParser->getAttributes($imagTag);
-        $src        = $this->parseAttributesAndRetreiveNewSrc($attributes);
+        $src = $this->parseAttributesAndRetreiveNewSrc($attributes);
+
         return "<img src='" . $src . "'" . $this->attributesParser->rebuild($attributes) . ">";
     }
 
@@ -42,11 +43,10 @@ class ImageTag extends ImageCacheController
 
     private function parseAttributesAndRetreiveNewSrc(array $attributes): string
     {
-        $webserved     = ImageParser::isWebServed($attributes['src']);
+        $webserved = ImageParser::isWebServed($attributes['src']);
         $needsresizing = ImageParser::needsResizing($attributes);
 
-        return (!$webserved || $needsresizing) ? $this->processAndRetreiveSrc($attributes) : $attributes['src'];
-
+        return (! $webserved || $needsresizing) ? $this->processAndRetreiveSrc($attributes) : $attributes['src'];
     }
 
     /**
@@ -57,9 +57,9 @@ class ImageTag extends ImageCacheController
     {
         $manager = new ImageManager(Config::get('image'));
         $content = $manager->cache(ImageParser::getCacheableImageFunction($attributes), 3600, true);
-        $src     = (optional($attributes)['data-src']) ? $this->getNewCacheKey($content->cachekey, $attributes['data-src']) : $content->cachekey;
-        return 'smart/' . $src;
+        $src = (optional($attributes)['data-src']) ? $this->getNewCacheKey($content->cachekey, $attributes['data-src']) : $content->cachekey;
 
+        return 'smart/' . $src;
     }
 
     /**
@@ -72,8 +72,7 @@ class ImageTag extends ImageCacheController
     {
         Cache::put($newKey, Cache::get($originalKey));
         Cache::forget($originalKey);
+
         return $newKey;
     }
-
-
 }

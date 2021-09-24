@@ -24,10 +24,7 @@ class SmartServiceProvider extends PackageServiceProvider
 
         $this->app['router']->get('/smart/{filename}', [
             'uses' => 'Dietercoopman\Smart\Factories\ImageTag@serve',
-            'as'   => 'images'
+            'as' => 'images',
         ])->where(['imagTag' => $filename_pattern]);
-
     }
-
-
 }

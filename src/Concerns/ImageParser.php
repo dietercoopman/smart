@@ -1,10 +1,11 @@
-<?php namespace Dietercoopman\Smart\Concerns;
+<?php
+
+namespace Dietercoopman\Smart\Concerns;
 
 use Illuminate\Support\Facades\File;
 
 class ImageParser
 {
-
     /**
      * Get the closure passed to the cache method
      * @param $attributes
@@ -14,7 +15,7 @@ class ImageParser
     {
         return function ($image) use (&$attributes) {
             $imageStream = self::getImageStream($attributes);
-            $img         = $image->make($imageStream);
+            $img = $image->make($imageStream);
             if (self::needsResizing($attributes)) {
                 $img->resize($attributes['width'] ?? null, $attributes['height'] ?? null, function ($constraint) {
                     $constraint->aspectRatio();
