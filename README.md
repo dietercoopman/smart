@@ -24,7 +24,7 @@ Smart provides you with a **blade component** as replacement for the normal `<im
 This will parse the image , cache it and serve to your browser
 
 ```html
-<img src="smart/8b0ebfa9edad45277f20a705cbdcb48f" width="400px">
+<img src="smart/7b5a22db93fd72ead9c5292182927ff2" width="400px">
 ```
 
 It's also possible to **handle public hosted files** but **changing** the image **size** , so execute a real resize on the image stream and not only telling the browser to show it at other dimensions.
