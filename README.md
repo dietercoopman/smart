@@ -11,12 +11,14 @@ So this package makes it possible to
 - **resize images** without coding
 - resizing public hosted images **without coding** 
 
+
+
 ## Blade component
 
 Smart provides you with a **blade component** as replacement for the normal `<img>` html tag.  You can pass in all html attributes , they will be applied.   This example will **serve a file that is not public accessible** and **resize it** to 400px maintaining the aspect ratio.
 
 ```html
-<x-smart-image src="../storage/file.png" width="400px" />
+<x-smart-image src="{{ storage_path('smart.png') }}" width="400px"/>
 ```
 
 This will parse the image , cache it and serve to your browser
@@ -39,13 +41,13 @@ This key is a random generated but you can override it if you want a more descri
 This can be done by setting the `data-src` attribute for your smart image.
 
 ```html
-<x-smart-image src="https://raw.githubusercontent.com/dietercoopman/smart/main/tests/test.png" data-src="smartdemo.jpg" width="600px" />
+<x-smart-image src="{{ storage_path('smart.png') }}" data-src="branding.png" width="400px"/>
 ```
 
 this will generate this html as output
 
 ```html
-<img src="smart/smartdemo.jpg" width="600px">
+<img src="smart/branding.png" width="600px">
 ```
 
 ## Installation
