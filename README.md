@@ -2,18 +2,18 @@
 
 ![smart image manipulation](https://banners.beyondco.de/smart.png?theme=light&packageManager=composer+require&packageName=dietercoopman%2Fsmart&pattern=architect&style=style_1&description=a+blade+component+for+easy+image+manipulation&md=1&showWatermark=1&fontSize=100px&images=https%3A%2F%2Flaravel.com%2Fimg%2Flogomark.min.svg)
 
-# This package provides a blade component for easy image manipulation without extra coding
+# A blade component for easy image manipulation
 
-This packages is very handy if you want to serve private hosted images ( images on a non public path) without the need to code your own logic.  It is also very handy if you want to resize your images before sending them to the browser also without extra coding.
+Want to serve private hosted images without the need to code your own logic ?  Want to resize your images before sending them to the browser, without extra coding ? Then smart might be your buddy !
 
-So this package makes it possible to
+This package makes it possible to
 - **serve images** that are not public accessible **without coding**
 - **resize images** without coding
 - resizing public hosted images **without coding** 
+- automatically cache your images
 
 
-
-## Blade component
+## The blade component
 
 Smart provides you with a **blade component** as replacement for the normal `<img>` html tag.  You can pass in all html attributes , they will be applied.   This example will **serve a file that is not public accessible** and **resize it** to 400px maintaining the aspect ratio.
 
