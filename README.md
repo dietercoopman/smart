@@ -36,7 +36,7 @@ It's also possible to **handle public hosted files** but **changing** the image 
 
 ## Caching 
 
-The images are cached with the, default the package will generate a key to store the images in the cache.  This key will be used to build the src of the file , making it possible for browsers to cache the image.
+The images are cached with the intervention/image chacke. Default the package will generate a key to store the images in the cache.  This key will be used to build the src of the file, making it possible for browsers to cache the image.
 This key is a random generated but you can override it if you want a more descriptive name for your images.
 
 This can be done by setting the `data-src` attribute for your smart image.
