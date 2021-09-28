@@ -13,6 +13,14 @@ This package makes it possible to
 - automatically cache your images
 
 
+## Installation
+
+You can install the package via composer:
+
+```bash
+composer require dietercoopman/smart
+```
+
 ## The blade component
 
 Smart provides you with a **blade component** as replacement for the normal `<img>` html tag.  You can pass in all html attributes , they will be applied.   This example will **serve a file that is not public accessible** and **resize it** to 400px maintaining the aspect ratio.
@@ -55,14 +63,6 @@ this will generate this html as output
 
 ![cache example](cache.png)
 
-
-## Installation
-
-You can install the package via composer:
-
-```bash
-composer require dietercoopman/smart
-```
 
 ## Changelog
 
