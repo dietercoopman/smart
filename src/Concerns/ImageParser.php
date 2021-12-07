@@ -25,7 +25,7 @@ class ImageParser
         };
     }
 
-    private static function sanitize(mixed $value): array|string|null
+    private static function sanitize($value)
     {
         return preg_replace('/[^0-9]/', '', $value);
     }
@@ -35,12 +35,12 @@ class ImageParser
         return isset($attributes['width']) || isset($attributes['height']);
     }
 
-    public static function isWebServed(mixed $src): bool
+    public static function isWebServed($src): bool
     {
         return strstr($src, 'http://') || strstr($src, 'https://');
     }
 
-    private static function getImageStream(mixed $attributes): string
+    private static function getImageStream($attributes): string
     {
         if (self::isWebServed($attributes['src'])) {
             return file_get_contents($attributes['src']);

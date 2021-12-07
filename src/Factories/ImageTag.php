@@ -36,7 +36,7 @@ class ImageTag extends ImageCacheController
      * @return IlluminateResponse|Illuminate\Http\Response
      * @throws \Exception
      */
-    public function serve($filename): IlluminateResponse|Illuminate\Http\Response
+    public function serve($filename)
     {
         return $this->buildResponse(cache()->get($filename));
     }
