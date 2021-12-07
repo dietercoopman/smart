@@ -8,10 +8,15 @@ class HtmlFactory
     {
         $type = $this->detectTag($html);
 
-        return match ($type) {
-            "img" => app(ImageTag::class),
-            default => app(HtmlTag::class)
-        };
+        switch ($type) {
+            case "img":
+                $class = app(ImageTag::class);
+                break;
+            default:
+                $class = app(HtmlTag::class);
+                break;
+        }
+        return $class;
     }
 
     private function detectTag(string $html): string
