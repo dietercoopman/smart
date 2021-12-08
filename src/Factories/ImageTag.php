@@ -59,7 +59,7 @@ class ImageTag extends ImageCacheController
         $content = $manager->cache(ImageParser::getCacheableImageFunction($attributes), 3600, true);
         $src = (optional($attributes)['data-src']) ? $this->getNewCacheKey($content->cachekey, $attributes['data-src']) : $content->cachekey;
 
-        return url('/').'/smart/' . $src;
+        return 'smart/' . $src;
     }
 
     /**
