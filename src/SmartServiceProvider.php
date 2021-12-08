@@ -22,7 +22,7 @@ class SmartServiceProvider extends PackageServiceProvider
 
         $filename_pattern = '[ \w\\.\\/\\-\\@\(\)]+';
 
-        $this->app['router']->get('/smart/{filename}', [
+        $this->app['router']->get(url('/').'/smart/{filename}', [
             'uses' => 'Dietercoopman\Smart\Factories\ImageTag@serve',
             'as' => 'images',
         ])->where(['imagTag' => $filename_pattern]);
