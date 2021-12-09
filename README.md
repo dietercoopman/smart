@@ -11,6 +11,7 @@ This package makes it possible to
 - **resize images** without coding
 - resizing public hosted images **without coding** 
 - automatically cache your images
+- apply the full intervention/image API to an image **without coding**
 
 
 ## Installation
