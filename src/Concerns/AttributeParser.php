@@ -83,6 +83,7 @@ class AttributeParser
         unset($attributes['src']);
         unset($attributes['smart']);
         unset($attributes['data-src']);
+        unset($attributes['data-template']);
         $attributesString = "";
         foreach ($attributes as $key => $value) {
             $attributesString .= $key . "='" . $value . "' ";

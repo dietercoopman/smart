@@ -3,6 +3,7 @@
 namespace Dietercoopman\Smart\Concerns;
 
 use Illuminate\Support\Facades\File;
+use Intervention\Image\Exception\NotSupportedException;
 
 class ImageParser
 {
@@ -15,14 +16,24 @@ class ImageParser
     {
         return function ($image) use (&$attributes) {
             $imageStream = self::getImageStream($attributes);
-            $img = $image->make($imageStream);
+            $img         = $image->make($imageStream);
+
+            if (isset($attributes['data-template'])) {
+                self::applyTemplate($img, $attributes);
+            }
+
             if (self::needsResizing($attributes)) {
-                $img->resize(self::sanitize(optional($attributes)['width']) ?? null, self::sanitize(optional($attributes)['height']) ?? null, function ($constraint) {
-                    $constraint->aspectRatio();
-                    $constraint->upsize();
-                });
+                self::resizeImage($img, $attributes);
             }
         };
+    }
+
+    private static function resizeImage($img, $attributes)
+    {
+        return $img->resize(self::sanitize(optional($attributes)['width']) ?? null, self::sanitize(optional($attributes)['height']) ?? null, function ($constraint) {
+            $constraint->aspectRatio();
+            $constraint->upsize();
+        });
     }
 
     private static function sanitize($value)
@@ -46,6 +57,18 @@ class ImageParser
             return file_get_contents($attributes['src']);
         } else {
             return File::get($attributes['src']);
+        }
+    }
+
+    private static function applyTemplate($img, $attributes)
+    {
+        try {
+            $template = collect(config('smart.image.templates.' . $attributes['data-template']));
+            return $template->each(function ($args, $method) use ($img) {
+                is_array($args) ? $img->$method(...$args) : $img->$method();
+            });
+        } catch (NotSupportedException $e) {
+
         }
     }
 }
