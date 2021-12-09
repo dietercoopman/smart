@@ -16,7 +16,7 @@ class ImageParser
     {
         return function ($image) use (&$attributes) {
             $imageStream = self::getImageStream($attributes);
-            $img         = $image->make($imageStream);
+            $img = $image->make($imageStream);
 
             if (isset($attributes['data-template'])) {
                 self::applyTemplate($img, $attributes);
@@ -64,11 +64,11 @@ class ImageParser
     {
         try {
             $template = collect(config('smart.image.templates.' . $attributes['data-template']));
+
             return $template->each(function ($args, $method) use ($img) {
                 is_array($args) ? $img->$method(...$args) : $img->$method();
             });
         } catch (NotSupportedException $e) {
-
         }
     }
 }
