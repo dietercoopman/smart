@@ -12,6 +12,7 @@ This package makes it possible to
 - resizing public hosted images **without coding** 
 - automatically cache your images
 - apply the full intervention/image API to an image **without coding**
+- apply templates to images, change the settings for all images from one place 
 
 
 ## Installation
@@ -22,9 +23,15 @@ You can install the package via composer:
 composer require dietercoopman/smart
 ```
 
+you can optionaly publish the config file if you want to use templates or change some settings ( see advanced usage with templates )
+
+```bash
+php artisan vendor:publish --tag=smart-config
+```
+
 ## The blade component
 
-Smart provides you with a **blade component** as replacement for the normal `<img>` html tag.  You can pass in all html attributes , they will be applied.   This example will **serve a file that is not public accessible** and **resize it** to 400px maintaining the aspect ratio.
+Smart provides you with a **blade component** as replacement for the normal `<img>` html tag.  You can pass in all html attributes , they will be applied.   This example will **serve a file that is not public accessible** and **resize it** to 400px maintaining the aspect ratio.  You can apply the full intervention/image API to a smart image ( see advanced usage with templates )
 
 ```html
 <x-smart-image src="{{ storage_path('smart.png') }}" width="400px"/>
@@ -64,6 +71,41 @@ this will generate this html as output
 
 ![cache example](cache.png)
 
+## Advanced usage with templates 
+
+Via the `data-template`attribute you can specify which template your image should use.  The templates are configurable in the `config/smart.php` config file.
+
+Here's the default config 
+
+```
+<?php
+
+$constraint = function ($constraint) {
+    $constraint->aspectRatio();
+};
+
+return [
+    'image' => [
+        'path'      => 'smart',
+        'templates' => [
+            'small' => [
+                'resize' => [200, null, $constraint],
+            ],
+            'big'   => [
+                'resize' => [500, null, $constraint],
+            ]
+        ]
+    ]
+];
+```
+
+The `path` key defines the url prefix for smart, it defaults to smart but it can be whatever you want.
+
+There are two templates defined by default, `small` and `big` , within the configuration you can define what settings needs to be applied to your images.  The possible settings are the method names as stated in the [intervention image](http://image.intervention.io/) API.
+
+For example, if you want to use the `resize` method from intervention/image then you define a resize array with the arguments as array value, defined as a sub array. All methods from the api can be used.  Here's an example of a config and the result
+
+![template example](https://user-images.githubusercontent.com/4672752/145472356-19e8982e-6937-49f2-9c71-d173091a127a.png)
 
 ## Changelog
 
