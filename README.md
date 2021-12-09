@@ -101,7 +101,7 @@ return [
 
 The `path` key defines the url prefix for smart, it defaults to smart but it can be whatever you want.
 
-There are two templates defined by default, `small` and `big` , within the configuration you can define what settings needs to be applied to your images.  The possible settings are the method names as stated in the [intervention image](http://image.intervention.io/) API.
+There are two templates defined by default, `small` and `big` , within the configuration you can define what settings needs to be applied to your images.  The possible settings are the method names as stated in the [intervention image](http://image.intervention.io/) API.  You can create as many template as you want
 
 For example, if you want to use the `resize` method from intervention/image then you define a resize array with the arguments as array value, defined as a sub array. All methods from the api can be used.  Here's an example of a config and the result
 
