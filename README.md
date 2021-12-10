@@ -111,6 +111,12 @@ For example, if you want to use the `resize` method from intervention/image then
 
 ![template example](https://user-images.githubusercontent.com/4672752/145472356-19e8982e-6937-49f2-9c71-d173091a127a.png)
 
+### Another fullblown example
+
+The images are s3 served, got rendered by a template that makes them all grey, they are made the same size and are rotated 15 degrees. They are encoded as webp and given a good name, google will love them, all with 1 smart tag 
+
+![Schermafbeelding 2021-12-10 om 22 10 28](https://user-images.githubusercontent.com/4672752/145644476-61fdea22-7292-49db-af3e-8fc820ca4127.png)
+
 ## Changelog
 
 Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
