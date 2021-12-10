@@ -8,7 +8,7 @@ Want to serve images from any location ( public, storage or disk ( wip ) ) ?  Wa
 
 This package makes it possible to
 - **serve images** from anywhere, this might be a public path , a private path or a Laravel disk ( wip )
-- **resize images** not only by defining height and with in the image tag but by really resizing the source file
+- **resize images** not only by defining height and width in the html image tag but by really resizing the source file
 - **apply templates** to images, change the settings for all images from one place 
 - automatically **cache** your images
 - apply the **full intervention/image API** to an image 
