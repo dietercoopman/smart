@@ -29,7 +29,12 @@ php artisan vendor:publish --tag=smart-config
 
 ## The blade component
 
-Smart provides you with a **blade component** as replacement for the normal `<img>` html tag.  You can pass in all html attributes, they will be applied.   This example will **serve a file that is not public accessible** and **resize it** to 400px maintaining the aspect ratio.  You can apply the full intervention/image API to a smart image ( see advanced usage with templates )
+Smart provides you with a **blade component** as replacement for the normal `<img>` html tag.  You can pass in all default html attributes like the `class` tag they will be passed to the rendered html.   
+
+Specify the source of your image with `src`, specify the source as exposed to the browser with `data-src`.  Specify the template to apply with `data-template`
+( see advanced usage with templates ) and the disk to use with `data-disk`, it's as simple a that.
+
+This example will **serve a file that is stored in the storage, so not public accessible** and **resize it** to 400px maintaining the aspect ratio.  You can apply the full intervention/image API to a smart image ( see advanced usage with templates )
 
 ```html
 <x-smart-image src="{{ storage_path('smart.png') }}" width="400px"/>
