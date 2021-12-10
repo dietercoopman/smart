@@ -9,14 +9,13 @@ Want to serve images from any location ( public, storage or disk ( wip ) ) ?  Wa
 This package makes it possible to
 - **serve images** from anywhere, this might be a public path , a private path or a Laravel disk 
 - **resize images** not only by defining height and with in the image tag but by really resizing the source file
-- resizing public hosted images **without coding** 
 - **apply templates** to images, change the settings for all images from one place 
 - automatically **cache** your images
 - apply the **full intervention/image API** to an image 
 
 ## Installation
 
-You can install the package via composer:
+You can install the package via composer
 
 ```bash
 composer require dietercoopman/smart
@@ -30,7 +29,7 @@ php artisan vendor:publish --tag=smart-config
 
 ## The blade component
 
-Smart provides you with a **blade component** as replacement for the normal `<img>` html tag.  You can pass in all html attributes , they will be applied.   This example will **serve a file that is not public accessible** and **resize it** to 400px maintaining the aspect ratio.  You can apply the full intervention/image API to a smart image ( see advanced usage with templates )
+Smart provides you with a **blade component** as replacement for the normal `<img>` html tag.  You can pass in all html attributes, they will be applied.   This example will **serve a file that is not public accessible** and **resize it** to 400px maintaining the aspect ratio.  You can apply the full intervention/image API to a smart image ( see advanced usage with templates )
 
 ```html
 <x-smart-image src="{{ storage_path('smart.png') }}" width="400px"/>
