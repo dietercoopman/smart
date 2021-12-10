@@ -48,6 +48,12 @@ It's also possible to **handle public hosted files** but **changing** the image 
 <x-smart-image src="https://raw.githubusercontent.com/dietercoopman/smart/main/tests/test.png" width="600px" />
 ```
 
+It's even possible to load files from a pre-configured disk from the filesystem
+
+```html
+<x-smart-image data-disk="s3" src="logos/mybrand.jpg" width="300"/>
+```
+
 ![smart example](example.png)
 
 ## Caching 

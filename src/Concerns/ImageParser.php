@@ -3,6 +3,7 @@
 namespace Dietercoopman\Smart\Concerns;
 
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Exception\NotSupportedException;
 
 class ImageParser
@@ -16,7 +17,7 @@ class ImageParser
     {
         return function ($image) use (&$attributes) {
             $imageStream = self::getImageStream($attributes);
-            $img = $image->make($imageStream);
+            $img         = $image->make($imageStream);
 
             if (isset($attributes['data-template'])) {
                 self::applyTemplate($img, $attributes);
@@ -55,6 +56,8 @@ class ImageParser
     {
         if (self::isWebServed($attributes['src'])) {
             return file_get_contents($attributes['src']);
+        } else if (isset($attributes['data-disk'])) {
+            return Storage::disk($attributes['data-disk'])->get($attributes['src']);
         } else {
             return File::get($attributes['src']);
         }
