@@ -4,10 +4,10 @@
 
 # A blade component for easy image manipulation
 
-Want to serve images from any location ( public, storage or disk ( wip ) ) ?  Want to resize your images before sending them to the browser ? Want to cache them ? Want to apply templates to images ? Then smart might be your buddy !
+Want to serve images from any location ( public, storage or disk ) ?  Want to resize your images before sending them to the browser ? Want to cache them ? Want to apply templates to images ? Then smart might be your buddy !
 
 This package makes it possible to
-- **serve images** from anywhere, this might be a public path , a private path or a Laravel disk ( wip )
+- **serve images** from anywhere, this might be a public path , a private path or a Laravel disk
 - **resize images** not only by defining height and width in the html image tag but by really resizing the content that is passed to the browser
 - **apply templates** to images, change the settings for all images from one place 
 - automatically **cache** your images
