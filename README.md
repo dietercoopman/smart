@@ -49,7 +49,7 @@ In this example the images are stored on S3. We want the images to be served all
 
 Smart provides you with a **blade component** as replacement for the normal `<img>` html tag. You can pass in all default html attributes like the `class` tag they will be passed to the rendered html.
 
-## The attributes for x-smart-image and x-smart-download
+## The attributes
 
 ### src
 
@@ -63,7 +63,7 @@ With this `data-disk` attribute you tell smart on which Laravel disk the src spe
 
 Specify the source as exposed to the browser with `data-src`. That is the source as shown in the rendered html, so you can expose friendly names to end users or search engines
 
-### data-template ( only available for x-smart-image )
+### data-template
 
 Specify the template to apply with `data-template` ( see advanced usage with templates ) to apply a pre-configured template to your images.
 
