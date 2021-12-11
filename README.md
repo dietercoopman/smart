@@ -21,7 +21,7 @@ Serving images that are stored wherever you want, changing the size and look&fee
 
 ### For smart download
 
-Downloading images that are stored wherever you want this can be your storage folder a Laravel disk of a https path
+Downloading files that are stored wherever you want this can be your storage folder a Laravel disk or a https path
 
 ## Installation
 
