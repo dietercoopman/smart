@@ -2,6 +2,8 @@
 
 namespace Dietercoopman\Smart\Concerns;
 
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Exception\NotSupportedException;
 
 class ImageParser extends Parser
@@ -15,7 +17,7 @@ class ImageParser extends Parser
     {
         return function ($image) use (&$attributes) {
             $imageStream = self::getStream($attributes);
-            $img         = $image->make($imageStream);
+            $img = $image->make($imageStream);
 
             if (isset($attributes['data-template'])) {
                 self::applyTemplate($img, $attributes);
