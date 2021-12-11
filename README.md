@@ -204,6 +204,12 @@ This example combines the image and the download tag, the image is passed in the
 </x-smart-download>
 ```
 
+### A rendered output example 
+
+This is the rendered output from an example as above, combining the smart-download and smart-image tag
+
+![Schermafbeelding 2021-12-11 om 14 05 07](https://user-images.githubusercontent.com/4672752/145677569-b92bb779-80a6-40f1-b0b2-ec83e7b4ff35.png)
+
 ## Changelog
 
 Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
@@ -221,6 +227,6 @@ Please review [our security policy](../../security/policy) on how to report secu
 - [Dieter Coopman](https://github.com/dietercoopman)
 - [All Contributors](../../contributors)
 
-## License
+## License  
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
