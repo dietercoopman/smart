@@ -186,6 +186,9 @@ With this `data-disk` attribute you tell smart on which Laravel disk the src spe
 
 Specify the source as exposed to the browser with `data-src`. That is the source as shown in the rendered html, so you can expose friendly names to end users or search engines
 
+
+## Examples
+
 ### A base example
 
 This example lets you download a manual that is stored in your storage path. 
