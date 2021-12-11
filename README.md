@@ -182,11 +182,6 @@ Specify the source of your download file with `src`, this can be a https path, o
 
 With this `data-disk` attribute you tell smart on which Laravel disk the src specified can be found.
 
-### data-src
-
-Specify the source as exposed to the browser with `data-src`. That is the source as shown in the rendered html, so you can expose friendly names to end users or search engines
-
-
 ## Examples
 
 ### A base example
