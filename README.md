@@ -129,24 +129,20 @@ Here's the default config
 ```
 <?php
 
-$constraint = function ($constraint) {
-    $constraint->aspectRatio();
-};
-
 return [
-    'image' => [
+    'image'    => [
         'path'      => 'smart',
         'templates' => [
             'small' => [
-                'resize' => [200, null, $constraint],
+                'resize' => [200, null, ['aspectRatio']],
             ],
             'big'   => [
-                'resize' => [500, null, $constraint],
+                'resize' => [500, null, ['aspectRatio']],
             ]
         ]
     ],
     'download' => [
-        'path' => 'smart/downloads',
+        'path'         => 'smart/downloads',
         'default-text' => 'download this file'
     ]
 ];
