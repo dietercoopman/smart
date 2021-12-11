@@ -210,7 +210,7 @@ This is the rendered output from an example as above, combining the smart-downlo
 
 ### Some storytelling on use cases 
 
-![Schermafbeelding 2021-12-11 om 17 31 32](https://user-images.githubusercontent.com/4672752/145684429-6784a5ab-fa17-42a9-a42c-c8b9746c46d4.png)
+![Schermafbeelding 2021-12-11 om 17 42 17](https://user-images.githubusercontent.com/4672752/145684566-daf6c873-d604-4750-a089-e78f2a096af4.png)
 ![Schermafbeelding 2021-12-11 om 17 33 42](https://user-images.githubusercontent.com/4672752/145684515-a5843937-3bb0-4c4a-97e2-abe6bb62bcbd.png)
 ![Schermafbeelding 2021-12-11 om 17 33 52](https://user-images.githubusercontent.com/4672752/145684485-12771757-b4e4-4e90-819e-7cb6bf4e98dd.png)
 ![Schermafbeelding 2021-12-11 om 17 34 00](https://user-images.githubusercontent.com/4672752/145684520-b9239576-1940-4ebe-8892-7563893593b1.png)
