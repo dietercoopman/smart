@@ -4,14 +4,17 @@
 
 # A blade component for easy image manipulation
 
-Want to serve images from any location ( public, storage or disk ) ?  Want to resize your images before sending them to the browser ? Want to cache them ? Want to apply templates to images ? Then smart might be your buddy !
-
 This package makes it possible to
 - **serve images** from anywhere, this might be a public path , a private path or a Laravel disk
 - **resize images** not only by defining height and width in the html image tag but by really resizing the content that is passed to the browser
 - **apply templates** to images, change the settings for all images from one place 
 - automatically **cache** your images
 - apply the **full intervention/image API** to an image 
+
+## Typical use case
+
+Serving images that are stored wherever you want, changing the size and look&feel of an image without changing the original source. So you can use 
+1 image to once serve them for example grey on an overview page, but full color on a detail page.
 
 ## Installation
 
@@ -27,56 +30,82 @@ you can optionaly publish the config file if you want to use templates or change
 php artisan vendor:publish --tag=smart-config
 ```
 
+## Full example
+
+In this example the images are stored on S3. We want the images to be served all grey and at the same height, but also rotated 15 degrees. They are encoded as webp and given a good name, search engines will love them, all with 1 smart tag.
+
+![full example](https://user-images.githubusercontent.com/4672752/145644476-61fdea22-7292-49db-af3e-8fc820ca4127.png)
+
 ## The blade component
 
 Smart provides you with a **blade component** as replacement for the normal `<img>` html tag.  You can pass in all default html attributes like the `class` tag they will be passed to the rendered html.   
 
-Specify the source of your image with `src`, specify the source as exposed to the browser with `data-src`.  Specify the template to apply with `data-template`
-( see advanced usage with templates ) and the disk to use with `data-disk`, it's as simple a that.
+## The attributes
 
-This example will **serve a file that is stored in the storage, so not public accessible** and **resize it** to 400px maintaining the aspect ratio.  You can apply the full intervention/image API to a smart image ( see advanced usage with templates )
+### src
+
+Specify the source of your image with `src`, this can be a https path, or a location on your server ( like /mnt/images ) or a Laravel disk to unlock serving images from S3, Dropbox or other custom filesystem. 
+
+### data-disk
+
+With this `data-disk` attribute you tell smart on which Laravel disk the src specified can be found.
+
+### data-src
+
+Specify the source as exposed to the browser with `data-src`.  That is the source as shown in the rendered html, so you can expose friendly names to end users or search engines
+
+### data-template
+
+Specify the template to apply with `data-template` ( see advanced usage with templates ) to apply a pre-configured template to your images.
+
+
+## Examples 
+
+### Base example 
+
+This example will **serve a file that is stored in the storage folder**
 
 ```html
-<x-smart-image src="{{ storage_path('smart.png') }}" width="400px"/>
+<x-smart-image src="{{ storage_path('smart.png') }}" />
 ```
 
-This will parse the image , cache it and serve to your browser
+### Loading images from Laravel disks
+
+This example loads an image from a S3 compatible Laravel disk with `data-disk`
 
 ```html
-<img src="smart/7b5a22db93fd72ead9c5292182927ff2" width="400px">
+<x-smart-image data-disk="s3" src="logos/mybrand.jpg" />
 ```
 
-It's also possible to **handle public hosted files** but **changing** the image **size** , so execute a real resize on the image stream and not only telling the browser to show it at other dimensions.
-```html
-<x-smart-image src="https://raw.githubusercontent.com/dietercoopman/smart/main/tests/test.png" width="600px" />
-```
+### Resizing images
 
-It's even possible to load files from a pre-configured disk from the filesystem
+This example will **serve a file that is stored in the storage folder** and **resize it** to 400px ( real file resize ! ) maintaining the aspect ratio.
 
 ```html
-<x-smart-image data-disk="s3" src="logos/mybrand.jpg" width="300"/>
+<x-smart-image src="{{ storage_path('smart.png') }}" width="400px" />
 ```
 
-![smart example](example.png)
+### Changing the name of the served content 
+
+The default name of the served images is a cache key, if you want to give it a more friendly name you can specify it with `data-src`
+
+```html
+<x-smart-image src="{{ storage_path('smart.png') }}" data-src="branding.png" />
+```
+
+### Using templates 
+
+With templates you can apply a predefined set of settings to your images.  Typically handy if you are using images in several places of for example an e-commerce 
+site.  
+
+```html
+<x-smart-image src="products/product1.jpg"  data-template="small" data-disk="s3" data-src="friendly-product-name.jpg" />
+```
 
 ## Caching 
 
-The images are cached with the intervention/image cache. Default the package will generate a key to store the images in the cache.  This key will be used to build the src of the file, making it possible for browsers to cache the image.
-This key is a random generated but you can override it if you want a more descriptive name for your images.
-
-This can be done by setting the `data-src` attribute for your smart image.
-
-```html
-<x-smart-image src="{{ storage_path('smart.png') }}" data-src="branding.png" width="400px"/>
-```
-
-this will generate this html as output
-
-```html
-<img src="smart/branding.png" width="600px">
-```
-
-### Here you see the caching in action
+The images are cached with the intervention/image cache. Default, the package will generate a key to store the images in the cache.  This key will be used to build the src of the file, making it possible for browsers to cache the image.
+This key is random generated, but you can override it if you want a more descriptive name for your images ( see `data-src` ) .
 
 ![cache example](cache.png)
 
@@ -110,17 +139,13 @@ return [
 
 The `path` key defines the url prefix for smart, it defaults to smart but it can be whatever you want.
 
-There are two templates defined by default, `small` and `big` , within the configuration you can define what settings needs to be applied to your images.  The possible settings are the method names as stated in the [intervention image](http://image.intervention.io/) API.  You can create as many template as you want
+There are two templates defined by default, `small` and `big`. Within the configuration you can define what settings need to be applied to your images.  
+The possible settings are the method names as stated in the [intervention image](http://image.intervention.io/) API.  
+You can create as many template as you want.
 
 For example, if you want to use the `resize` method from intervention/image then you define a resize array with the arguments as array value, defined as a sub array. All methods from the api can be used.  Here's an example of a config and the result
 
 ![template example](https://user-images.githubusercontent.com/4672752/145472356-19e8982e-6937-49f2-9c71-d173091a127a.png)
-
-### Another fullblown example
-
-The images are s3 served, got rendered by a template that makes them all grey, they are made the same size and are rotated 15 degrees. They are encoded as webp and given a good name, google will love them, all with 1 smart tag 
-
-![Schermafbeelding 2021-12-10 om 22 10 28](https://user-images.githubusercontent.com/4672752/145644476-61fdea22-7292-49db-af3e-8fc820ca4127.png)
 
 ## Changelog
 
