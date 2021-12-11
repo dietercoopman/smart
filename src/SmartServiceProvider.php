@@ -21,6 +21,10 @@ class SmartServiceProvider extends PackageServiceProvider
             Blade::component('smart::components.smart-image', "smart-image");
         });
 
+        $this->callAfterResolving(BladeCompiler::class, function () {
+            Blade::component('smart::components.smart-download', "smart-download");
+        });
+
         $filename_pattern = '[ \w\\.\\/\\-\\@\(\)]+';
 
         //this makes it possible to generate a dynamic route based on a config value
@@ -32,5 +36,13 @@ class SmartServiceProvider extends PackageServiceProvider
             'uses' => 'Dietercoopman\Smart\Factories\ImageTag@serve',
             'as' => 'images',
         ])->where(['imagTag' => $filename_pattern]);
+
+        $downloadroute = '/' . $config['smart']['download']['path'] . '/{hash}/{filename}';
+
+        $this->app['router']->get($downloadroute, [
+            'uses' => 'Dietercoopman\Smart\Factories\ATag@download',
+            'as' => 'downloads',
+        ])->where(['downloadTag' => $filename_pattern]);
+
     }
 }

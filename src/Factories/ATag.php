@@ -3,14 +3,12 @@
 namespace Dietercoopman\Smart\Factories;
 
 use Dietercoopman\Smart\Concerns\AttributeParser;
-use Dietercoopman\Smart\Concerns\ImageParser;
-use Illuminate\Http\Response as IlluminateResponse;
+use Dietercoopman\Smart\Concerns\DownloadParser;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Config;
-use Intervention\Image\ImageCacheController;
-use Intervention\Image\ImageManager;
+use Illuminate\Support\Str;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
-class ImageTag extends ImageCacheController
+class ATag
 {
     private AttributeParser $attributesParser;
 
@@ -25,55 +23,62 @@ class ImageTag extends ImageCacheController
     public function parse($imagTag): string
     {
         $attributes = $this->attributesParser->getAttributes($imagTag);
-        $src = $this->parseAttributesAndRetreiveNewSrc($attributes);
-
-        return "<img src='" . $src . "'" . $this->attributesParser->rebuild($attributes) . ">";
+        return "<a href='" . $this->getLink($attributes) . "' " . $this->attributesParser->rebuild($attributes) . ">__slot__</a>";
     }
 
-    /**
-     * Serve the image that has been cached
-     * @param $filename
-     * @return IlluminateResponse|Illuminate\Http\Response
-     * @throws \Exception
-     */
-    public function serve($filename)
-    {
-        return $this->buildResponse(cache()->get($filename));
-    }
 
-    private function parseAttributesAndRetreiveNewSrc(array $attributes): string
+    private function getLink(array $attributes): string
     {
-        $webserved = ImageParser::isWebServed($attributes['src']);
-        $needsresizing = ImageParser::needsResizing($attributes);
-        $hasTemplate = isset($attributes['data-template']);
-
-        return (! $webserved || $needsresizing || $hasTemplate) ? $this->processAndRetreiveSrc($attributes) : $attributes['src'];
+        return $this->processAndRetreiveNewLink($attributes);
     }
 
     /**
      * @param $attributes
      * @return string
      */
-    private function processAndRetreiveSrc($attributes): string
+    private function processAndRetreiveNewLink($attributes): string
     {
-        $manager = new ImageManager(Config::get('image'));
-        $content = $manager->cache(ImageParser::getCacheableImageFunction($attributes), 3600, true);
-        $src = (optional($attributes)['data-src']) ? $this->getNewCacheKey($content->cachekey, $attributes['data-src']) : $content->cachekey;
-
-        return '/' . config('smart.image.path') . '/' . $src;
+        $sha1 = $this->saveAttributesToCacheAndReturnCacheKey($attributes);
+        return '/' . config('smart.download.path') . '/' . $sha1.'/'.basename($attributes['src']);
     }
 
-    /**
-     * Replace the originally generated cache key with a new cache key
-     * @param $originalKey
-     * @param $newKey
-     * @return string
-     */
-    private function getNewCacheKey($originalKey, $newKey): string
+    public function download()
     {
-        Cache::put($newKey, Cache::get($originalKey));
-        Cache::forget($originalKey);
+        $attributes = $this->getAttributesForRequest();
+        return $this->buildResponse($attributes);
+    }
 
-        return $newKey;
+    private function saveAttributesToCacheAndReturnCacheKey(array $attributes)
+    {
+        $jsonAttributes = json_encode($attributes);
+        $sha1           = sha1($jsonAttributes);
+        $hash           = encrypt($jsonAttributes);
+        if (!Cache::has($sha1)) {
+            Cache::put($sha1, $hash);
+        }
+        return $sha1;
+    }
+
+    private function getAttributesForRequest()
+    {
+        $segments = request()->segments();
+        end($segments);
+        $sha1     = prev($segments);
+
+        $encryptedAttributes = Cache::get($sha1);
+        return json_decode(decrypt($encryptedAttributes), true);
+    }
+
+    private function buildResponse($attributes)
+    {
+        $response = response()->stream(function () use ($attributes) {
+            echo DownloadParser::getStream($attributes);
+        });
+
+        $name        = basename($attributes['src']);
+        $disposition = $response->headers->makeDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT, $name, str_replace('%', '', Str::ascii($name)));
+
+        $response->headers->set('Content-Disposition', $disposition);
+        return $response;
     }
 }

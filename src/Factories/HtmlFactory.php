@@ -11,11 +11,12 @@ class HtmlFactory
         switch ($type) {
             case "img":
                 $class = app(ImageTag::class);
-
+                break;
+            case "a":
+                $class = app(ATag::class);
                 break;
             default:
                 $class = app(HtmlTag::class);
-
                 break;
         }
 

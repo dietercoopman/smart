@@ -4,7 +4,7 @@ $constraint = function ($constraint) {
     $constraint->aspectRatio();
 };
 return [
-    'image' => [
+    'image'    => [
         'path'      => 'smart',
         'templates' => [
             'small' => [
@@ -14,5 +14,9 @@ return [
                 'resize' => [500, null, $constraint],
             ]
         ]
+    ],
+    'download' => [
+        'path' => 'smart/downloads',
+        'default-text' => 'download this file'
     ]
 ];
