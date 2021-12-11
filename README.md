@@ -144,6 +144,10 @@ return [
                 'resize' => [500, null, $constraint],
             ]
         ]
+    ],
+    'download' => [
+        'path' => 'smart/downloads',
+        'default-text' => 'download this file'
     ]
 ];
 ```
@@ -160,17 +164,39 @@ For example, if you want to use the `resize` method from intervention/image then
 
 # Smart download
 
-### 🏗 this part of the documentation is a work in progress 🏗
+Smart download makes it possible to download any type of document with a simple tag. No need to program a backend portion of code to retrieve file streams and serve them, its
+all handled by smart.
+
+## The blade component
+
+Smart download provides you with a href tag. You can pass in all default html attributes like the `class` tag they will be passed to the rendered html.  
+You can use a slot as visualisation for the link, the defaults are configured in the `default-text` parameter from the config.
+
+## The attributes for  x-smart-download
+
+### src
+
+Specify the source of your download file with `src`, this can be a https path, or a location on your server ( like /mnt/images ) or a Laravel disk to unlock serving images from S3, Dropbox or other custom filesystem.
+
+### data-disk
+
+With this `data-disk` attribute you tell smart on which Laravel disk the src specified can be found.
+
+### data-src
+
+Specify the source as exposed to the browser with `data-src`. That is the source as shown in the rendered html, so you can expose friendly names to end users or search engines
 
 ### A base example
 
+This example lets you download a manual that is stored in your storage path. 
+
 ```
-<x-smart-download src="manual.pdf" target="_blank" />
+<x-smart-download src="{{ storage_path('manual.pdf') }}" target="_blank" />
 ```
 
-### An advanced example
+### An advanced example with an image as visualisation
 
-This example combines the image and the download tag 
+This example combines the image and the download tag, the image is passed in the default slot so you have a visual link. 
 
 ```
 <x-smart-download src="logo.png" data-disk="s3" target="_blank" />
