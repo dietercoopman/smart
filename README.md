@@ -43,7 +43,7 @@ php artisan vendor:publish --tag=smart-config
 
 In this example the images are stored on S3. We want the images to be served all grey and at the same height, but also rotated 15 degrees. They are encoded as webp and given a good name, search engines will love them, all with 1 smart tag.
 
-![full example](https://user-images.githubusercontent.com/4672752/145644476-61fdea22-7292-49db-af3e-8fc820ca4127.png)
+![overview](https://user-images.githubusercontent.com/4672752/145693397-f960d88b-dc22-40f2-8699-e0351f6db632.png)
 
 ## The blade component
 
