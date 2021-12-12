@@ -156,7 +156,7 @@ You can create as many template as you want.
 
 For example, if you want to use the `resize` method from intervention/image then you define a resize array with the arguments as array value, defined as a sub array. All methods from the api can be used. Here's an example of a config and the result
 
-![template example](https://user-images.githubusercontent.com/4672752/145709001-0118b4e0-f76b-42f6-a726-dec48c500c9b.png)
+![fullexample](https://user-images.githubusercontent.com/4672752/145709051-f5acc5b4-c480-4063-ad3d-bb0bac055274.png)
 
 # Using the full API of intervention/image
 
