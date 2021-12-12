@@ -158,6 +158,31 @@ For example, if you want to use the `resize` method from intervention/image then
 
 ![template example](https://user-images.githubusercontent.com/4672752/145472356-19e8982e-6937-49f2-9c71-d173091a127a.png)
 
+# Using the full API of intervention/image
+
+You can even go further, you can apply the full API of intervention/image by passing arrays, this examples draws a rectangle onto your resized image.  The most simple way of doing it is by definig a new array with the method names of the callback as array keys and the arguments as array value, then passing this array as if you would pass a callback to an intervention/image method.
+
+```
+<?php
+
+$rectangle = [
+    'background' => ['rgba(255, 255, 255, 0.5)'],
+    'border'     => [10, '#CCC']
+];
+
+return [
+    'image' => [
+        'path'      => 'smart',
+        'templates' => [
+            'rotated' => [
+                'resize'    => [null, 500, ['aspectRatio']],
+                'rectangle' => [5, 5, 195, 195, $rectangle],
+            ]           
+        ]
+    ]
+];
+```
+
 # Smart download
 
 Smart download makes it possible to download any type of document with a simple tag. No need to program a backend portion of code to retrieve file streams and serve them, its
