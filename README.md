@@ -305,6 +305,7 @@ assume 25 images on your screen , thats more than 10MB ... -->
 ![resize](https://user-images.githubusercontent.com/4672752/145706393-f9f6fa47-52c0-480c-b8ee-a87ab945a826.png)
 ![advanced](https://user-images.githubusercontent.com/4672752/145706395-c9f82468-d63c-4848-90de-7a61e7554a78.png)
 ![downloads](https://user-images.githubusercontent.com/4672752/145706396-e262b44f-232e-4cbb-acd3-a30fcb322465.png)
+![downloadssmart](https://user-images.githubusercontent.com/4672752/145706426-7d68e792-fcdc-4676-95eb-ba0e88981247.png)
 
 
 ## Changelog
