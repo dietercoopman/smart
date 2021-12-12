@@ -23,6 +23,10 @@ Serving images that are stored wherever you want, changing the size and look&fee
 
 Downloading files that are stored wherever you want this can be your storage folder a Laravel disk or a https path
 
+## Watch me explaining what smart is on YouTube
+[![Schermafbeelding 2021-12-12 om 15 26 36](https://user-images.githubusercontent.com/4672752/145716421-cd75f419-0478-4f14-9522-703c2c76c84f.png)](https://www.youtube.com/watch?v=XuHM_9lhClE)
+
+
 ## Installation
 
 You can install the package via composer
