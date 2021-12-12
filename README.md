@@ -231,11 +231,77 @@ This is the rendered output from an example as above, combining the smart-downlo
 
 ### Some storytelling on use cases 
 
-![Schermafbeelding 2021-12-11 om 17 42 17](https://user-images.githubusercontent.com/4672752/145684566-daf6c873-d604-4750-a089-e78f2a096af4.png)
-![Schermafbeelding 2021-12-11 om 17 33 42](https://user-images.githubusercontent.com/4672752/145684515-a5843937-3bb0-4c4a-97e2-abe6bb62bcbd.png)
-![Schermafbeelding 2021-12-11 om 17 33 52](https://user-images.githubusercontent.com/4672752/145684485-12771757-b4e4-4e90-819e-7cb6bf4e98dd.png)
-![Schermafbeelding 2021-12-11 om 17 34 00](https://user-images.githubusercontent.com/4672752/145684520-b9239576-1940-4ebe-8892-7563893593b1.png)
+```html
+<h1>Base examples</h1>
+<!-- I have a file in a public path -->
+<img src="smart.png" /><br />
+<!-- ☝ this works, cool ... -->
 
+<h1>Resizing images without smart</h1>
+<!-- WITHOUT SMART -->
+<!-- I want to make it smaller, without changeing my source -->
+<img src="smart.png" width="200px" /><br/>
+<!-- ☝ the file size is not changed :-( , it's the same number of KB's  76.4 KBs , you might don't care but ... -->
+
+<!-- Ok lets make it some more challenging  -->
+<img src="big.png" width="200px" /><br />
+<!-- ☝ the file size is not changed :-( , it's the same number of KB's  445 KBs , you might care :-)
+assume 25 images on your screen , thats more than 10MB ... -->
+
+<h1>Resizing images with smart</h1>
+<!-- WITH SMART -->
+<!-- Let's see what smart does with the same use case -->
+<x-smart-image src="smart.png" width="200px" data-src="smart.png" /><br />
+<!-- ☝ the file size changed :-) , the file size is shrinked => result 12 KBs ... -->
+
+<!-- Let's see what smart does with the same use case for the big image -->
+<x-smart-image src="big.png" width="200px" data-src="big-shrinked.png" /><br />
+<!-- ☝ the file size changed :-) , the file size is shrinked => result 9.4 KBs ... assume 25 images on your screen => 235 KBs , that's about 9.8MB less ... -->
+
+<h1>Changing the look and feel of an image</h1>
+<!-- WITHOUT SMART -->
+<!-- I want to rotate the image, hmm ...  -->
+<img src="smart.png" width="100px" style="transform: rotate(45deg)" /><br />
+<!-- ok its rotated , but it's still too big in filesize and meh that css ... -->
+
+<!-- WITH SMART -->
+<!-- Let's see what smart does with the same use case -->
+<x-smart-image src="smart.png" data-template="rotated" data-src="smart_rotated.png" /><br />
+<!-- ☝ the file size changed :-) , the file size is shrinked 6.2 KBs ... -->
+
+<h1>Advanced examples with templates</h1>
+<!-- lets go crazy -->
+<x-smart-image src="big.png" data-template="crazy" data-src="big-crazy.png" /><br />
+<!-- ☝ fun isn't it , without touching the original image -->
+
+<h1>Files that are not serveable by your webbrowser</h1>
+<!-- And now the tought part ... not for smart but for the img tag -->
+
+<!-- WITHOUT SMART -->
+<!-- I don't want my files in that private public path , I want them on S3 -->
+<img src="{{ Storage::disk('s3')->get('smart.png') }}" />
+<!-- ☝ this doesn't work ... -->
+
+<!-- WITH SMART -->
+<!-- I don't want my files in that public path , I want them on S3 -->
+<x-smart-image data-disk="s3" src="another_big.png" data-template="crazy" /><br />
+<!-- or in your storage folder -->
+<x-smart-image src="{{ storage_path('smart.png') }}" data-template="crazy" />
+<!-- hell yeah ! -->
+
+<h1>Downloads with smart</h1>
+<!-- WITHOUT SMART -->
+<a href="{{ Storage::disk('s3')->get('smart.png') }}" />
+<!-- ☝ this doesn't work ... -->
+
+<!-- downloads WITH SMART -->
+<!-- Now , our customers might have the ability to download images -->
+<x-smart-download data-disk="s3" src="another_big.png" /><br />
+<!-- Or, with slots -->
+<x-smart-download data-disk="s3" src="another_big.png">Download this photo</x-smart-download><br/>
+<!-- Or, event better -->
+<x-smart-download data-disk="s3" src="another_big.png"><x-smart-image data-disk="s3" src="another_big.png" data-template="crazy" /></x-smart-download>
+```
 
 ## Changelog
 
