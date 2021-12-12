@@ -241,7 +241,8 @@ This is the rendered output from an example as above, combining the smart-downlo
 <!-- WITHOUT SMART -->
 <!-- I want to make it smaller, without changeing my source -->
 <img src="smart.png" width="200px" /><br/>
-<!-- ☝ the file size is not changed :-( , it's the same number of KB's  76.4 KBs , you might don't care but ... -->
+<!-- ☝ the file size is not changed :-( , it's the same number of KB's  76.4 KBs 
+, you might don't care but ... -->
 
 <!-- Ok lets make it some more challenging  -->
 <img src="big.png" width="200px" /><br />
@@ -256,7 +257,8 @@ assume 25 images on your screen , thats more than 10MB ... -->
 
 <!-- Let's see what smart does with the same use case for the big image -->
 <x-smart-image src="big.png" width="200px" data-src="big-shrinked.png" /><br />
-<!-- ☝ the file size changed :-) , the file size is shrinked => result 9.4 KBs ... assume 25 images on your screen => 235 KBs , that's about 9.8MB less ... -->
+<!-- ☝ the file size changed :-) , the file size is shrinked => result 9.4 KBs ... 
+assume 25 images on your screen => 235 KBs , that's about 9.8MB less ... -->
 
 <h1>Changing the look and feel of an image</h1>
 <!-- WITHOUT SMART -->
