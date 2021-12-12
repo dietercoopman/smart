@@ -302,7 +302,9 @@ assume 25 images on your screen => 235 KBs , that's about 9.8MB less ... -->
 <!-- Or, with slots -->
 <x-smart-download data-disk="s3" src="another_big.png">Download this photo</x-smart-download><br/>
 <!-- Or, event better -->
-<x-smart-download data-disk="s3" src="another_big.png"><x-smart-image data-disk="s3" src="another_big.png" data-template="crazy" /></x-smart-download>
+<x-smart-download data-disk="s3" src="another_big.png">
+    <x-smart-image data-disk="s3" src="another_big.png" data-template="crazy" />
+</x-smart-download>
 ```
 ![resize](https://user-images.githubusercontent.com/4672752/145706393-f9f6fa47-52c0-480c-b8ee-a87ab945a826.png)
 ![advanced](https://user-images.githubusercontent.com/4672752/145706395-c9f82468-d63c-4848-90de-7a61e7554a78.png)
