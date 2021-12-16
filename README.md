@@ -1,6 +1,6 @@
 ![Downloads](https://img.shields.io/packagist/dt/dietercoopman/smart.svg?style=flat-square)
 
-![smart image manipulation](https://banners.beyondco.de/smart.png?theme=light&packageManager=composer+require&packageName=dietercoopman%2Fsmart&pattern=architect&style=style_1&description=a+blade+component+for+easy+image+manipulation&md=1&showWatermark=1&fontSize=100px&images=https%3A%2F%2Flaravel.com%2Fimg%2Flogomark.min.svg)
+![smart image manipulation](https://banners.beyondco.de/smart.png?theme=light&packageManager=composer+require&packageName=dietercoopman%2Fsmart&pattern=architect&style=style_1&description=Blade+components+for+easy+image+manipulation+and+file+downloads&md=1&showWatermark=0&fontSize=100px&images=https%3A%2F%2Flaravel.com%2Fimg%2Flogomark.min.svg)
 
 # Blade components for easy image manipulation and file downloads
 
@@ -22,6 +22,10 @@ Serving images that are stored wherever you want, changing the size and look&fee
 ### For smart download
 
 Downloading files that are stored wherever you want this can be your storage folder a Laravel disk or a https path
+
+## Watch me explaining what smart is on YouTube
+[![Schermafbeelding 2021-12-12 om 15 26 36](https://user-images.githubusercontent.com/4672752/145716421-cd75f419-0478-4f14-9522-703c2c76c84f.png)](https://www.youtube.com/watch?v=XuHM_9lhClE)
+
 
 ## Installation
 
@@ -156,7 +160,32 @@ You can create as many template as you want.
 
 For example, if you want to use the `resize` method from intervention/image then you define a resize array with the arguments as array value, defined as a sub array. All methods from the api can be used. Here's an example of a config and the result
 
-![template example](https://user-images.githubusercontent.com/4672752/145472356-19e8982e-6937-49f2-9c71-d173091a127a.png)
+![fullexample](https://user-images.githubusercontent.com/4672752/145709051-f5acc5b4-c480-4063-ad3d-bb0bac055274.png)
+
+# Using the full API of intervention/image
+
+You can even go further, you can apply the full API of intervention/image by passing arrays, this examples draws a rectangle onto your resized image.  The most simple way of doing it is by definig a new array with the method names of the callback as array keys and the arguments as array value, then passing this array as if you would pass a callback to an intervention/image method.
+
+```
+<?php
+
+$rectangle = [
+    'background' => ['rgba(255, 255, 255, 0.5)'],
+    'border'     => [10, '#CCC']
+];
+
+return [
+    'image' => [
+        'path'      => 'smart',
+        'templates' => [
+            'rotated' => [
+                'resize'    => [null, 500, ['aspectRatio']],
+                'rectangle' => [5, 5, 195, 195, $rectangle],
+            ]           
+        ]
+    ]
+];
+```
 
 # Smart download
 
@@ -206,10 +235,85 @@ This is the rendered output from an example as above, combining the smart-downlo
 
 ### Some storytelling on use cases 
 
-![Schermafbeelding 2021-12-11 om 17 42 17](https://user-images.githubusercontent.com/4672752/145684566-daf6c873-d604-4750-a089-e78f2a096af4.png)
-![Schermafbeelding 2021-12-11 om 17 33 42](https://user-images.githubusercontent.com/4672752/145684515-a5843937-3bb0-4c4a-97e2-abe6bb62bcbd.png)
-![Schermafbeelding 2021-12-11 om 17 33 52](https://user-images.githubusercontent.com/4672752/145684485-12771757-b4e4-4e90-819e-7cb6bf4e98dd.png)
-![Schermafbeelding 2021-12-11 om 17 34 00](https://user-images.githubusercontent.com/4672752/145684520-b9239576-1940-4ebe-8892-7563893593b1.png)
+```html
+<h1>Base examples</h1>
+<!-- I have a file in a public path -->
+<img src="smart.png" /><br />
+<!-- ☝ this works, cool ... -->
+
+<h1>Resizing images without smart</h1>
+<!-- WITHOUT SMART -->
+<!-- I want to make it smaller, without changeing my source -->
+<img src="smart.png" width="200px" /><br/>
+<!-- ☝ the file size is not changed :-( , it's the same number of KB's  76.4 KBs 
+, you might don't care but ... -->
+
+<!-- Ok lets make it some more challenging  -->
+<img src="big.png" width="200px" /><br />
+<!-- ☝ the file size is not changed :-( , it's the same number of KB's  445 KBs , you might care :-)
+assume 25 images on your screen , thats more than 10MB ... -->
+
+<h1>Resizing images with smart</h1>
+<!-- WITH SMART -->
+<!-- Let's see what smart does with the same use case -->
+<x-smart-image src="smart.png" width="200px" data-src="smart.png" /><br />
+<!-- ☝ the file size changed :-) , the file size is shrinked => result 12 KBs ... -->
+
+<!-- Let's see what smart does with the same use case for the big image -->
+<x-smart-image src="big.png" width="200px" data-src="big-shrinked.png" /><br />
+<!-- ☝ the file size changed :-) , the file size is shrinked => result 9.4 KBs ... 
+assume 25 images on your screen => 235 KBs , that's about 9.8MB less ... -->
+
+<h1>Changing the look and feel of an image</h1>
+<!-- WITHOUT SMART -->
+<!-- I want to rotate the image, hmm ...  -->
+<img src="smart.png" width="100px" style="transform: rotate(45deg)" /><br />
+<!-- ok its rotated , but it's still too big in filesize and meh that css ... -->
+
+<!-- WITH SMART -->
+<!-- Let's see what smart does with the same use case -->
+<x-smart-image src="smart.png" data-template="rotated" data-src="smart_rotated.png" /><br />
+<!-- ☝ the file size changed :-) , the file size is shrinked 6.2 KBs ... -->
+
+<h1>Advanced examples with templates</h1>
+<!-- lets go crazy -->
+<x-smart-image src="big.png" data-template="crazy" data-src="big-crazy.png" /><br />
+<!-- ☝ fun isn't it , without touching the original image -->
+
+<h1>Files that are not serveable by your webbrowser</h1>
+<!-- And now the tought part ... not for smart but for the img tag -->
+
+<!-- WITHOUT SMART -->
+<!-- I don't want my files in that private public path , I want them on S3 -->
+<img src="{{ Storage::disk('s3')->get('smart.png') }}" />
+<!-- ☝ this doesn't work ... -->
+
+<!-- WITH SMART -->
+<!-- I don't want my files in that public path , I want them on S3 -->
+<x-smart-image data-disk="s3" src="another_big.png" data-template="crazy" /><br />
+<!-- or in your storage folder -->
+<x-smart-image src="{{ storage_path('smart.png') }}" data-template="crazy" />
+<!-- hell yeah ! -->
+
+<h1>Downloads with smart</h1>
+<!-- WITHOUT SMART -->
+<a href="{{ Storage::disk('s3')->get('smart.png') }}" />
+<!-- ☝ this doesn't work ... -->
+
+<!-- downloads WITH SMART -->
+<!-- Now , our customers might have the ability to download images -->
+<x-smart-download data-disk="s3" src="another_big.png" /><br />
+<!-- Or, with slots -->
+<x-smart-download data-disk="s3" src="another_big.png">Download this photo</x-smart-download><br/>
+<!-- Or, event better -->
+<x-smart-download data-disk="s3" src="another_big.png">
+    <x-smart-image data-disk="s3" src="another_big.png" data-template="crazy" />
+</x-smart-download>
+```
+![resize](https://user-images.githubusercontent.com/4672752/145706393-f9f6fa47-52c0-480c-b8ee-a87ab945a826.png)
+![advanced](https://user-images.githubusercontent.com/4672752/145706395-c9f82468-d63c-4848-90de-7a61e7554a78.png)
+![downloads](https://user-images.githubusercontent.com/4672752/145706396-e262b44f-232e-4cbb-acd3-a30fcb322465.png)
+![downloadssmart](https://user-images.githubusercontent.com/4672752/145706426-7d68e792-fcdc-4676-95eb-ba0e88981247.png)
 
 
 ## Changelog
