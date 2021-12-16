@@ -3,17 +3,17 @@
 namespace Dietercoopman\Smart;
 
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\ServiceProvider;
 use Illuminate\View\Compilers\BladeCompiler;
-use Spatie\LaravelPackageTools\Package;
-use Spatie\LaravelPackageTools\PackageServiceProvider;
 
-class SmartServiceProvider extends PackageServiceProvider
+class SmartServiceProvider extends ServiceProvider
 {
-    public function configurePackage(Package $package): void
+    public function boot(): void
     {
-        $package->name('smart')
-            ->hasConfigFile();
-        ;
+        $this->publishes([
+            __DIR__ . '/../config/smart.php' => config_path('smart.php'),
+        ]);
+
 
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'smart');
 
