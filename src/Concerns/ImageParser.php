@@ -15,7 +15,7 @@ class ImageParser extends Parser
     {
         return function ($image) use (&$attributes) {
             $imageStream = self::getStream($attributes);
-            $img         = $image->make($imageStream);
+            $img = $image->make($imageStream);
 
             if (isset($attributes['data-template'])) {
                 self::applyTemplate($img, $attributes);
@@ -56,16 +56,16 @@ class ImageParser extends Parser
             array_pop($args);
             $callback = function ($constraint) use ($last) {
                 foreach ($last as $method => $args) {
-                    if(is_numeric($method)){
+                    if (is_numeric($method)) {
                         $method = $args;
                         $args = [];
                     }
                     $constraint->$method(...$args);
                 }
             };
-            $args[]   = $callback;
-
+            $args[] = $callback;
         }
+
         return $args;
     }
 }

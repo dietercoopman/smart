@@ -43,6 +43,5 @@ class SmartServiceProvider extends ServiceProvider
             'uses' => 'Dietercoopman\Smart\Factories\ATag@download',
             'as' => 'downloads',
         ])->where(['downloadTag' => $filename_pattern]);
-
     }
 }
