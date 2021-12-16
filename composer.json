@@ -49,10 +49,7 @@
         "laravel": {
             "providers": [
                 "Dietercoopman\\Smart\\SmartServiceProvider"
-            ],
-            "aliases": {
-                "Smart": "Dietercoopman\\Smart\\SmartFacade"
-            }
+            ]
         }
     },
     "minimum-stability": "dev",
