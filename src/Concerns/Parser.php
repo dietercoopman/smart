@@ -1,4 +1,6 @@
-<?php namespace Dietercoopman\Smart\Concerns;
+<?php
+
+namespace Dietercoopman\Smart\Concerns;
 
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
