@@ -1,6 +1,7 @@
 <?php
 
 namespace Dietercoopman\Smart\Tests;
+use Orchestra\Testbench\TestCase;
 
 class SmartTest extends TestCase
 {
