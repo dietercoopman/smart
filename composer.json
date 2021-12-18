@@ -1,6 +1,6 @@
 {
     "name": "dietercoopman/smart",
-    "description": "This packages enables the ability to server file streams in a smart way",
+    "description": "This packages enables the ability to serve file streams in a smart way",
     "keywords": [
         "dietercoopman",
         "laravel",
