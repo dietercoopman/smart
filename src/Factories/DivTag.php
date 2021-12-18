@@ -3,10 +3,6 @@
 namespace Dietercoopman\Smart\Factories;
 
 use Dietercoopman\Smart\Concerns\AttributeParser;
-use Dietercoopman\Smart\Concerns\DownloadParser;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Str;
-use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
 class DivTag extends ImageTag
 {
@@ -27,5 +23,4 @@ class DivTag extends ImageTag
 
         return "<div style='background-image:url(\"" . $src . "\")'" . $this->attributesParser->rebuild($attributes) . ">";
     }
-
 }

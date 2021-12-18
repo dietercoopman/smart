@@ -14,6 +14,7 @@ class Smart
 
         if ($this->isSmartHtml($html)) {
             $tag = $factory->create($html);
+
             return $tag->parse($html);
         }
 
