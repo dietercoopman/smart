@@ -17,6 +17,10 @@ class HtmlFactory
                 $class = app(ATag::class);
 
                 break;
+            case "div":
+                $class = app(DivTag::class);
+
+                break;
             default:
                 $class = app(HtmlTag::class);
 

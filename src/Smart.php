@@ -11,9 +11,9 @@ class Smart
     public function parse($html)
     {
         $factory = app(HtmlFactory::class);
+
         if ($this->isSmartHtml($html)) {
             $tag = $factory->create($html);
-
             return $tag->parse($html);
         }
 

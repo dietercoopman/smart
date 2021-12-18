@@ -41,7 +41,7 @@ class ImageTag extends ImageCacheController
         return $this->buildResponse(cache()->get($filename));
     }
 
-    private function parseAttributesAndRetreiveNewSrc(array $attributes): string
+    protected function parseAttributesAndRetreiveNewSrc(array $attributes): string
     {
         $webserved = ImageParser::isWebServed($attributes['src']);
         $needsresizing = ImageParser::needsResizing($attributes);

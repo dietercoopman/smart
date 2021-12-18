@@ -12,6 +12,7 @@ This package makes it possible to
 - automatically **cache** your images
 - apply the **full intervention/image API** to an image
 - **download files** from anywhere, this might be a public path , a private path or a Laravel disk
+- use **smart-div** to add background images to div blocks
 
 ## Typical use case
 
@@ -23,9 +24,13 @@ Serving images that are stored wherever you want, changing the size and look&fee
 
 Downloading files that are stored wherever you want this can be your storage folder a Laravel disk or a https path
 
+### For smart div
+
+Sometimes you have to add background images to div blocks, this can be achieved with smart-div.  You can apply templates to the 
+background images.
+
 ## Watch me explaining what smart is on YouTube
 [![Schermafbeelding 2021-12-12 om 15 26 36](https://user-images.githubusercontent.com/4672752/145716421-cd75f419-0478-4f14-9522-703c2c76c84f.png)](https://www.youtube.com/watch?v=XuHM_9lhClE)
-
 
 ## Installation
 
@@ -233,7 +238,23 @@ This is the rendered output from an example as above, combining the smart-downlo
 
 ![Schermafbeelding 2021-12-11 om 14 05 07](https://user-images.githubusercontent.com/4672752/145677569-b92bb779-80a6-40f1-b0b2-ec83e7b4ff35.png)
 
-### Some storytelling on use cases 
+# Smart div
+
+With smart div it's possible to apply background images on div's.  The images can be stored everywhere, just like with smart-image.
+The documentation for smart div is the same as for smart-image. The only difference is that it will render a div with a background-image
+applied to it.
+
+```html
+<x-smart-div src="smart.png" data-src="background.png"></x-smart-div>
+```
+
+This renders as the following html
+
+```html
+<div style='background-image:url("/smart/background.png")'></div>
+```
+
+# Some storytelling on use cases 
 
 ```html
 <h1>Base examples</h1>

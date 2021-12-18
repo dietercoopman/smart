@@ -14,7 +14,6 @@ class SmartServiceProvider extends ServiceProvider
             __DIR__ . '/../config/smart.php' => config_path('smart.php'),
         ]);
 
-
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'smart');
 
         $this->callAfterResolving(BladeCompiler::class, function () {
@@ -23,6 +22,10 @@ class SmartServiceProvider extends ServiceProvider
 
         $this->callAfterResolving(BladeCompiler::class, function () {
             Blade::component('smart::components.smart-download', "smart-download");
+        });
+
+        $this->callAfterResolving(BladeCompiler::class, function () {
+            Blade::component('smart::components.smart-div', "smart-div");
         });
 
         $filename_pattern = '[ \w\\.\\/\\-\\@\(\)]+';

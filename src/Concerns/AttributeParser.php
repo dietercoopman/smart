@@ -6,20 +6,20 @@ class AttributeParser
 {
     public function getAttributes($htmlortag, $name = false)
     {
-        $p = 0;
-        $tag = false;
-        $inquote = false;
-        $started = false;
-        $stack = '';
-        $attrState = -1;    // -1:NOTHING   1:NAME 2:VALUE
-        $currentAttr = false;
+        $p            = 0;
+        $tag          = false;
+        $inquote      = false;
+        $started      = false;
+        $stack        = '';
+        $attrState    = -1;    // -1:NOTHING   1:NAME 2:VALUE
+        $currentAttr  = false;
         $attrValuePos = -1;
-        $attr = [];
+        $attr         = [];
         while ($p < strlen($htmlortag)) {
             $c = substr($htmlortag, $p, 1);
 
-            if ($c == ' ' && $started && ! $tag) {
-                $tag = $stack;
+            if ($c == ' ' && $started && !$tag) {
+                $tag   = $stack;
                 $stack = '';
             } elseif ($started && $c == '>' && ($attrState != 2 || $inquote == ' ')) {        // END OF TAG (if not in a value, doesn't work without braces)
                 $started = false;
@@ -33,25 +33,25 @@ class AttributeParser
                 break;    // DONE
             } elseif ($started && $tag && $c == '=' && $attrState != 2) {                    // END OF ATTR NAME, BEGIN OF VALUE
                 $currentAttr = trim($stack);
-                $stack = '';
-                $attrState = 2;
+                $stack       = '';
+                $attrState   = 2;
             } elseif ($started && $tag && $c == ' ' && $attrState == 1) {                    // END OF ATTR NAME, BEGIN OF VALUE
                 $currentAttr = trim($stack);
-                $stack = '';
-                $attrState = 5;
+                $stack       = '';
+                $attrState   = 5;
             } elseif ($started && $tag && $attrState == 5) {                                // CHAR AFTER SPACE AFTER ATTR NAME, BEGIN OF ANOTHER ATTR
                 $attr[$currentAttr] = true;
-                $currentAttr = false;
-                $stack .= $c;
-                $attrState = 1;
-            } elseif (! $started && $c == '<') {                                            // BEGIN OF TAG
+                $currentAttr        = false;
+                $stack              .= $c;
+                $attrState          = 1;
+            } elseif (!$started && $c == '<') {                                            // BEGIN OF TAG
                 $started = true;
             } elseif ($started && $tag && $attrState == 2 && $c === $inquote) {            // END OF VALUE
                 $attr[$currentAttr] = $stack;
-                $stack = '';
-                $attrState = -1;
-                $inquote = false;
-                $attrValuePos = -1;
+                $stack              = '';
+                $attrState          = -1;
+                $inquote            = false;
+                $attrValuePos       = -1;
             } elseif ($started && $tag && $attrState == 2 && $attrValuePos == -1) {        // MIDDLE OF VALUE
                 $attrValuePos = 0;
                 if ($c == '\'') {
@@ -59,13 +59,13 @@ class AttributeParser
                 } elseif ($c == '"') {
                     $inquote = '"';
                 } else {
-                    $inquote = ' ';
-                    $stack .= $c;
+                    $inquote      = ' ';
+                    $stack        .= $c;
                     $attrValuePos = 1;
                 }
             } elseif ($started && $tag && $attrState == -1) {                            // BEGIN OF ATTR NAME
                 $attrState = 1;
-                $stack .= $c;
+                $stack     .= $c;
             } else {
                 $stack .= $c;
                 if ($attrState == 2) {
@@ -84,11 +84,13 @@ class AttributeParser
         unset($attributes['smart']);
         unset($attributes['data-src']);
         unset($attributes['data-template']);
+        unset($attributes['data-background']);
         unset($attributes['data-disk']);
 
         $attributesString = "";
         foreach ($attributes as $key => $value) {
-            $attributesString .= $key . "='" . $value . "' ";
+            if (!blank($key))
+                $attributesString .= $key . "='" . $value . "' ";
         }
 
         return $attributesString;
