@@ -27,7 +27,7 @@ class ImageTag extends ImageCacheController
         $attributes = $this->attributesParser->getAttributes($imagTag);
         $src = $this->parseAttributesAndRetreiveNewSrc($attributes);
 
-        return "<img src='" . $src . "'" . $this->attributesParser->rebuild($attributes) . ">";
+        return "<img src='" . $src . "' " . $this->attributesParser->rebuild($attributes) . ">";
     }
 
     /**
