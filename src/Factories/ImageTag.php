@@ -72,10 +72,11 @@ class ImageTag extends ImageCacheController
     private function getNewCacheKey($originalKey, $newKey): string
     {
         /** todo: needs better solution for this */
-        if (!Cache::has($newKey)) {
+        if (! Cache::has($newKey)) {
             Cache::put($newKey, Cache::get($originalKey));
             Cache::forget($originalKey);
         }
+
         return $newKey;
     }
 }
