@@ -16,10 +16,10 @@
         }
     ],
     "require": {
-        "php": "^7.4|^8.0",
+        "php": "~7.2|~8",
         "ext-dom": "*",
         "ext-fileinfo": "*",
-        "illuminate/support": "^7|^8",
+        "illuminate/support": "^7|^8|^9",
         "intervention/image": "^2.6",
         "intervention/imagecache": "^2.5"
     },
