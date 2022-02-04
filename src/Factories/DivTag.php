@@ -21,6 +21,6 @@ class DivTag extends ImageTag
         $attributes = $this->attributesParser->getAttributes($imagTag);
         $src = $this->parseAttributesAndRetreiveNewSrc($attributes);
 
-        return "<div style='background-image:url(\"" . $src . "\")' " . $this->attributesParser->rebuild($attributes) . "></div>";
+        return "<div style='background-image:url(\"" . $src . "\")' " . $this->attributesParser->rebuild($attributes) . ">__slot__</div>";
     }
 }
