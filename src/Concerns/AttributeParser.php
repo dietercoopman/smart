@@ -90,7 +90,7 @@ class AttributeParser
         $attributesString = "";
         foreach ($attributes as $key => $value) {
             if (! blank($key)) {
-                $attributesString .= $key . "='" . $value . "' ";
+                $attributesString .= $key . "='" . \Blade::render($value) . "' ";
             }
         }
 
