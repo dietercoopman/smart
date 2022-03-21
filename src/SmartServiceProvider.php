@@ -12,7 +12,7 @@ class SmartServiceProvider extends ServiceProvider
     {
         $this->publishes([
             __DIR__ . '/../config/smart.php' => config_path('smart.php'),
-        ]);
+        ], 'smart-config');
 
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'smart');
 
