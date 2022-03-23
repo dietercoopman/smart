@@ -24,12 +24,16 @@ class Parser
 
     public static function getStream($attributes): string
     {
-        if (self::isWebServed($attributes['src'])) {
-            return file_get_contents($attributes['src']);
-        } elseif (isset($attributes['data-disk'])) {
-            return Storage::disk($attributes['data-disk'])->get($attributes['src']);
-        } else {
-            return File::get($attributes['src']);
+        try {
+            if (self::isWebServed($attributes['src'])) {
+                return file_get_contents($attributes['src']);
+            } elseif (isset($attributes['data-disk'])) {
+                return Storage::disk($attributes['data-disk'])->get($attributes['src']);
+            } else {
+                return File::get($attributes['src']);
+            }
+        } catch (\Throwable $e) {
+            return 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAA1JREFUGFdj+P///38ACfsD/QVDRcoAAAAASUVORK5CYII=';
         }
     }
 }
