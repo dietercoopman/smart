@@ -33,7 +33,7 @@ class Parser
                 return File::get($attributes['src']);
             }
         } catch (\Throwable $e) {
-            return config('smart.image.file-not-found');
+            return config('smart.image.file-not-found','data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAA1JREFUGFdj+P///38ACfsD/QVDRcoAAAAASUVORK5CYII=');
         }
     }
 }
