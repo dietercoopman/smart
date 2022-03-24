@@ -148,7 +148,8 @@ return [
             'big'   => [
                 'resize' => [500, null, ['aspectRatio']],
             ]
-        ]
+        ],
+        'file-not-found' => 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAA1JREFUGFdj+P///38ACfsD/QVDRcoAAAAASUVORK5CYII='
     ],
     'download' => [
         'path'         => 'smart/downloads',
@@ -166,6 +167,8 @@ You can create as many template as you want.
 For example, if you want to use the `resize` method from intervention/image then you define a resize array with the arguments as array value, defined as a sub array. All methods from the api can be used. Here's an example of a config and the result
 
 ![fullexample](https://user-images.githubusercontent.com/4672752/145709051-f5acc5b4-c480-4063-ad3d-bb0bac055274.png)
+
+if a given source is not found than the image defined in `file-not-found` is returned (default a 1x1 png), here you can specify any image stream or image path.
 
 # Using the full API of intervention/image
 
