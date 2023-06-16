@@ -1,5 +1,6 @@
 ![smart image manipulation](https://banners.beyondco.de/smart.png?theme=light&packageManager=composer+require&packageName=dietercoopman%2Fsmart&pattern=architect&style=style_1&description=Blade+components+for+easy+image+manipulation+and+file+downloads&md=1&showWatermark=0&fontSize=100px&images=https%3A%2F%2Flaravel.com%2Fimg%2Flogomark.min.svg)
 
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/dietercoopman/smart.svg?style=flat-square)](https://packagist.org/packages/dietercoopman/smart)
 ![Downloads](https://img.shields.io/packagist/dt/dietercoopman/smart.svg?style=flat-square)
 
 # Blade components for easy image manipulation and file downloads
