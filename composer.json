@@ -21,8 +21,7 @@
         "ext-fileinfo": "*",
         "illuminate/filesystem": "^7|^8|^9|^10.0|^11.0",
         "illuminate/support": "^7|^8|^9|^9|^10.0|^11.0",
-        "intervention/image": "^2.6|^3.4",
-        "intervention/imagecache": "^2.5"
+        "intervention/image": "^2.6|^3.4"
     },
     "require-dev": {
         "orchestra/testbench": "^6.15|^8.0|^9.0"
