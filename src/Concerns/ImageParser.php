@@ -3,6 +3,7 @@
 namespace Dietercoopman\Smart\Concerns;
 
 use Intervention\Image\Exception\NotSupportedException;
+use Intervention\Image\Image;
 
 class ImageParser extends Parser
 {
@@ -11,20 +12,19 @@ class ImageParser extends Parser
      * @param $attributes
      * @return \Closure
      */
-    public static function getCacheableImageFunction($attributes): \Closure
+    public static function getContent($manager, $attributes): Image
     {
-        return function ($image) use (&$attributes) {
-            $imageStream = self::getStream($attributes);
-            $img = $image->make($imageStream);
+        $imageStream = self::getStream($attributes);
+        $img = $manager->read($imageStream);
 
-            if (isset($attributes['data-template'])) {
-                self::applyTemplate($img, $attributes);
-            }
+        if (isset($attributes['data-template'])) {
+            self::applyTemplate($img, $attributes);
+        }
 
-            if (self::needsResizing($attributes)) {
-                self::resizeImage($img, $attributes);
-            }
-        };
+        if (self::needsResizing($attributes)) {
+            self::resizeImage($img, $attributes);
+        }
+        return $img;
     }
 
     private static function resizeImage($img, $attributes)

@@ -7,7 +7,8 @@ use Dietercoopman\Smart\Concerns\ImageParser;
 use Illuminate\Http\Response as IlluminateResponse;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
-use Intervention\Image\ImageCacheController;
+use Dietercoopman\Smart\Cache\ImageCacheController;
+use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\ImageManager;
 
 class ImageTag extends ImageCacheController
@@ -38,7 +39,7 @@ class ImageTag extends ImageCacheController
      */
     public function serve($filename)
     {
-        return $this->buildResponse(cache()->get($filename));
+        return $this->buildResponse(decrypt(cache()->get($filename)));
     }
 
     protected function parseAttributesAndRetreiveNewSrc(array $attributes): string
@@ -56,9 +57,12 @@ class ImageTag extends ImageCacheController
      */
     private function processAndRetreiveSrc($attributes): string
     {
-        $manager = new ImageManager(Config::get('image'));
-        $content = $manager->cache(ImageParser::getCacheableImageFunction($attributes), 3600, true);
-        $src = (optional($attributes)['data-src']) ? $this->getNewCacheKey($content->cachekey, $attributes['data-src']) : $content->cachekey;
+        $manager = new ImageManager(new Driver());
+        $content = ImageParser::getContent($manager,$attributes);
+        $cacheKey = sha1($attributes['src']);
+
+        $src = (optional($attributes)['data-src']) ? $this->getNewCacheKey($cacheKey, $attributes['data-src']) : $cacheKey;
+        cache()->put($src, encrypt($content->toJpeg()->__toString()),100);
 
         return '/' . config('smart.image.path') . '/' . $src;
     }
