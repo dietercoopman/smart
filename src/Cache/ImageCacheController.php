@@ -4,9 +4,9 @@ namespace Dietercoopman\Smart\Cache;
 
 use Closure;
 use Config;
-use Intervention\Image\ImageManager;
-use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Response as IlluminateResponse;
+use Illuminate\Routing\Controller as BaseController;
+use Intervention\Image\ImageManager;
 
 class ImageCacheController extends BaseController
 {
@@ -104,13 +104,14 @@ class ImageCacheController extends BaseController
             case is_callable($template):
                 return $template;
 
-            // filter template found
+                // filter template found
             case class_exists($template):
                 return new $template();
 
             default:
                 // template not found
                 abort(404);
+
                 break;
         }
     }
@@ -159,7 +160,7 @@ class ImageCacheController extends BaseController
             'Content-Type' => $mime,
             'Cache-Control' => 'max-age=' . (config('imagecache.lifetime') * 60) . ', public',
             'Content-Length' => strlen($content),
-            'Etag' => $etag
+            'Etag' => $etag,
         ]);
     }
 }

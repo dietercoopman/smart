@@ -24,6 +24,7 @@ class ImageParser extends Parser
         if (self::needsResizing($attributes)) {
             self::resizeImage($img, $attributes);
         }
+
         return $img;
     }
 

@@ -2,12 +2,11 @@
 
 namespace Dietercoopman\Smart\Factories;
 
+use Dietercoopman\Smart\Cache\ImageCacheController;
 use Dietercoopman\Smart\Concerns\AttributeParser;
 use Dietercoopman\Smart\Concerns\ImageParser;
 use Illuminate\Http\Response as IlluminateResponse;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Config;
-use Dietercoopman\Smart\Cache\ImageCacheController;
 use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\ImageManager;
 
@@ -58,11 +57,11 @@ class ImageTag extends ImageCacheController
     private function processAndRetreiveSrc($attributes): string
     {
         $manager = new ImageManager(new Driver());
-        $content = ImageParser::getContent($manager,$attributes);
+        $content = ImageParser::getContent($manager, $attributes);
         $cacheKey = sha1($attributes['src']);
 
         $src = (optional($attributes)['data-src']) ? $this->getNewCacheKey($cacheKey, $attributes['data-src']) : $cacheKey;
-        cache()->put($src, encrypt($content->toJpeg()->__toString()),100);
+        cache()->put($src, encrypt($content->toJpeg()->__toString()), 100);
 
         return '/' . config('smart.image.path') . '/' . $src;
     }
